@@ -45,3 +45,8 @@ Mortgage Quest Elite is the most advanced multi-modal fintech gaming platform, c
 📄 us_mortgage_data_fixed.csv       # Core dataset
 📄 requirements.txt                 # Python libraries
 📄 README.md                        # You're here!
+
+### 👩‍🚀 About the Team
+
+Built with ❤️ by **Team BEFMNS**  
+🧠 NYU Stern Fintech | Capstone 2025 | AI, Credit Risk, and Embedded Finance
