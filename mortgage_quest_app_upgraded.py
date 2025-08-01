@@ -1,59 +1,72 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+import numpy as np
+import matplotlib.pyplot as plt
 
-# Set page configuration
-st.set_page_config(page_title="Mortgage Quest – Interactive Game Mode Simulator", layout="wide")
+# Page Config
+st.set_page_config(
+    page_title="Mortgage Quest — Interactive Game Mode Simulator",
+    layout="wide"
+)
 
-# Sidebar navigation
-st.sidebar.title("🔍 Navigate")
-page = st.sidebar.radio("", ["Home", "📊 Data Trends", "💖 Simulations", "💡 Buy or Wait", "🔎 About"])
+# Title
+st.title("🏠 Mortgage Quest — Interactive Game Mode Simulator")
+st.markdown("A U.S. housing market simulator built for the NYU Fintech Capstone Project.")
 
-# Load data safely
+# Load Data
 @st.cache_data
 def load_data():
-    try:
-        df = pd.read_csv("final_dataset.csv")
-        return df
-    except Exception as e:
-        st.error(f"Error loading data: {e}")
-        return None
+    df = pd.read_csv("us_mortgage_data_fixed.csv")  # Make sure this file is in your repo
+    return df
 
-# Page: Home
-if page == "Home":
-    st.markdown("<h1>🏠 Mortgage Quest — Interactive Game Mode Simulator</h1>", unsafe_allow_html=True)
-    st.write("A U.S. housing market simulator built for the NYU Fintech Capstone Project.")
-    st.markdown("### Welcome to Mortgage Quest")
+df = load_data()
+
+# Tabs
+tabs = st.tabs(["🏠 Home", "📊 Data Trends", "🧮 Simulations", "💡 Buy or Wait", "ℹ️ About"])
+
+# --- Home Tab ---
+with tabs[0]:
+    st.subheader("Welcome to Mortgage Quest")
     st.write("Explore macroeconomic stress, mortgage delinquency, and affordability dynamics interactively.")
-    st.image("https://cdn.pixabay.com/photo/2017/01/16/19/40/house-1989912_1280.png", use_column_width=True)
+    st.image("https://images.unsplash.com/photo-1560185127-6ed189bf02bb")  # Optional: aesthetic
 
-# Page: Data Trends
-elif page == "📊 Data Trends":
-    st.header("Delinquency Trends")
-    df = load_data()
-    if df is not None and "Quarter" in df.columns:
-        fig = px.line(df, 
-                      x="Quarter", 
-                      y=["Mortgage", "Auto", "Student Loan", "Credit Card"],
-                      labels={"value": "Delinquency Rate", "variable": "Loan Type"},
-                      title="Delinquency Rates by Loan Type")
-        st.plotly_chart(fig, use_container_width=True)
+# --- Data Trends Tab ---
+with tabs[1]:
+    st.subheader("📊 Mortgage & Delinquency Trends")
+    st.write("Visualizing trends from 2020 to 2025")
+    
+    selected_metric = st.selectbox("Select Metric", df.columns[1:])
+    fig = px.line(df, x="Date", y=selected_metric, title=f"{selected_metric} Over Time")
+    st.plotly_chart(fig, use_container_width=True)
 
-# Page: Simulations (Placeholder for now)
-elif page == "💖 Simulations":
-    st.header("Simulation Tools")
-    st.info("Interactive simulation features coming soon!")
+# --- Simulations Tab ---
+with tabs[2]:
+    st.subheader("🧮 Economic Stress Simulation")
+    fed_rate = st.slider("Simulated Fed Rate (%)", 0.0, 10.0, 5.0)
+    income = st.slider("Median Income ($)", 20000, 120000, 60000)
+    rent = st.slider("Median Rent ($)", 500, 4000, 1500)
 
-# Page: Buy or Wait (Placeholder)
-elif page == "💡 Buy or Wait":
-    st.header("Should You Buy Now or Wait?")
-    st.warning("Decision tool under development. Stay tuned!")
+    affordability_index = income / rent
+    st.metric("Affordability Index", round(affordability_index, 2))
 
-# Page: About
-elif page == "🔎 About":
-    st.header("About This App")
+# --- Buy or Wait Tab ---
+with tabs[3]:
+    st.subheader("💡 Should You BUY or WAIT?")
+    if affordability_index > 3:
+        st.success("📈 Market seems affordable → Recommended: **BUY**")
+    elif affordability_index > 2:
+        st.warning("⚖️ Borderline case → Recommended: **WAIT and Watch**")
+    else:
+        st.error("📉 Market is tight → Recommended: **WAIT**")
+
+# --- About Tab ---
+with tabs[4]:
+    st.subheader("ℹ️ About This Project")
     st.markdown("""
-    **Mortgage Quest** is an interactive housing credit risk simulator developed for academic and research purposes.  
-    Developed by **BEFMNS** as part of the NYU Fintech Capstone Project (2025).  
-    Uses publicly available U.S. delinquency and credit data to simulate decision-making environments.
+    **Mortgage Quest** is a fintech simulation tool designed for the NYU Stern Fintech Capstone.  
+    It uses real U.S. economic data to model how consumers might decide between **buying** or **waiting** in the housing market.
+
+    **Developed by:** BEFMNS  
+    **Year:** 2025  
     """)
