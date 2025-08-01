@@ -1,52 +1,82 @@
-# 🚀 Mortgage Quest Elite
+# 🏡 Mortgage Quest – NYU Fintech Capstone
 
-**Mortgage Quest Elite** is an AI-powered, multi-modal fintech gaming platform that simulates U.S. homeownership decisions through immersive, gamified interfaces. Navigate your financial future across life stages — from first-time buyer to property mogul — using real-world mortgage data and predictive insights.
-
----
-
-## 🎯 Mission Statement
-Mortgage Quest Elite is the most advanced multi-modal fintech gaming platform, combining cutting-edge AI with immersive gaming experiences.
-
-🧠 Key Systems:
-- 🎮 **Life Stage Modes** – 5 unique simulations from Renter to Investor  
-- ✨ **Quest System** – Personalized XP-based challenges  
-- 🏆 **Achievement Engine** – Earn badges and level-up  
-- 💰 **Stablecoin Wallet** – Simulate wealth growth with DeFi flavor  
-- 📊 **AI Intelligence** – Real-time BUY or WAIT decisions  
-- 🏘 **Portfolio Tracker** – Track performance across simulated real estate
+A gamified real estate journey to help users decide: **Buy or Wait?**  
+Built with real U.S. mortgage data, simulations, and a user-friendly dashboard.
 
 ---
 
-## 🔧 Tech Stack
-| Component        | Technology        |
-|------------------|-------------------|
-| **Frontend**     | Advanced Streamlit + HTML/CSS |
-| **Visualization**| Plotly Interactive Charts     |
-| **Data Handling**| Pandas, NumPy     |
-| **AI Engine**    | Predictive Modeling |
-| **UI Design**    | Futuristic Gaming Layout |
+### 🔍 What This App Does
+
+This app helps users explore homeownership choices using real mortgage data, AI logic, and a fun simulation journey. It includes:
+
+- 📊 Data dashboard
+- 🎮 Life stage simulations
+- 💡 Decision recommendations
+- 📁 Asset portfolio tracker
 
 ---
 
-## 🕹️ Navigation Console
-- 🚀 **Mission Control Hub**
-- 🎮 **Life Stage Modes**
-- 📊 **Intelligence Center**
-- 📈 **Strategy Simulator**
-- 🔮 **Decision Matrix**
-- 🏘 **Asset Portfolio**
-- 📜 **Command Brief**
+### 🗂️ Project Folder Structure
+
+```
+mortgage-quest-app/
+├── mortgage_quest_app_upgraded.py   ← Main app file to run
+├── us_mortgage_data_fixed.csv       ← Real U.S. housing & mortgage data
+├── requirements.txt                 ← Python packages used
+├── README.md                        ← You’re reading it!
+```
 
 ---
 
-## 📦 File Structure
-```bash
-📄 mortgage_quest_app_upgraded.py   # Main app file
-📄 us_mortgage_data_fixed.csv       # Core dataset
-📄 requirements.txt                 # Python libraries
-📄 README.md                        # You're here!
+### 🚀 How to Run This App on Your Computer
 
-### 👩‍🚀 About the Team
+1. **Download or Clone this repo**
+   ```
+   git clone https://github.com/Navi20590/mortgage-quest-app.git
+   cd mortgage-quest-app
+   ```
 
-Built with ❤️ by **Team BEFMNS**  
+2. **Install all necessary packages**
+   ```
+   pip install -r requirements.txt
+   ```
+
+3. **Start the Streamlit app**
+   ```
+   streamlit run mortgage_quest_app_upgraded.py
+   ```
+
+---
+
+### 🌐 Live Demo
+
+👉 [Click here to try the live app](https://mortgagequest.streamlit.app)
+
+---
+
+### 🧠 How It Works – Module-by-Module
+
+| Module                     | What It Does                                                                          |
+|---------------------------|----------------------------------------------------------------------------------------|
+| **🏠 Mission Control Hub**     | Shows key indicators: interest rates, affordability, homeownership cost              |
+| **🕹️ Life Stage Modes**        | Lets users explore 5 buyer types (starter, investor, mover, etc.)                    |
+| **💡 Intelligence Center**     | Offers suggestions using scenario analysis                                          |
+| **📊 Strategy Simulator**      | Users play with sliders to simulate income, inflation, interest rate changes        |
+| **📁 Asset Portfolio**         | Tracks decisions, XP, risk level, and user balance                                  |
+| **📘 Command Brief**           | Explains the concept, usage, and tech used                                          |
+
+---
+
+### 🧩 Tech Stack
+
+- `Streamlit` for frontend
+- `Pandas` + `Plotly` for data and visualizations
+- `Custom CSS` for styling
+- Dataset: Cleaned U.S. Mortgage and Housing Indicators (CSV)
+
+---
+
+### 👩‍🚀 Built by
+
+**Team BEFMNS**  
 🧠 NYU Stern Fintech | Capstone 2025 | AI, Credit Risk, and Embedded Finance
