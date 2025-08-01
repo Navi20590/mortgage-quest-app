@@ -1,29 +1,47 @@
-# 🏡 Mortgage Quest App
+# 🚀 Mortgage Quest Elite
 
-Mortgage Quest is a multi-modal fintech gaming platform that simulates U.S. homeownership decisions using real economic data.
-
-Built for five life stages — from First-Time Buyer to Property Investor — it blends Fed rates, delinquency trends, rent-income affordability, and macroeconomic conditions to generate real-time **BUY** or **WAIT** insights.
-
-## 📊 Key Features
-- Streamlit-based interactive dashboard
-- Cleaned U.S. mortgage & delinquency data (2020–2025)
-- Scenario simulation based on Fed rate, income, and rent shifts
-- BUY/WAIT signal logic powered by affordability trends
-- Designed as a capstone prototype for NYU Fintech
-
-## 📂 Files
-- `mortgage_quest_app_upgraded.py`: Main Streamlit application
-- `us_mortgage_data_fixed.csv`: Cleaned macro + delinquency dataset
-
-## 🚀 How to Run Locally
-```bash
-pip install streamlit pandas matplotlib
-streamlit run mortgage_quest_app_upgraded.py
-## 💡 Future Plans
-- D3.js interactive visuals
-- AI agent scoring for real estate investment
-- DeFi mortgage wallet simulation
+**Mortgage Quest Elite** is an AI-powered, multi-modal fintech gaming platform that simulates U.S. homeownership decisions through immersive, gamified interfaces. Navigate your financial future across life stages — from first-time buyer to property mogul — using real-world mortgage data and predictive insights.
 
 ---
 
-© 2025 Navnita Pandey. Built as part of the NYU Fintech Capstone Project.
+## 🎯 Mission Statement
+Mortgage Quest Elite is the most advanced multi-modal fintech gaming platform, combining cutting-edge AI with immersive gaming experiences.
+
+🧠 Key Systems:
+- 🎮 **Life Stage Modes** – 5 unique simulations from Renter to Investor  
+- ✨ **Quest System** – Personalized XP-based challenges  
+- 🏆 **Achievement Engine** – Earn badges and level-up  
+- 💰 **Stablecoin Wallet** – Simulate wealth growth with DeFi flavor  
+- 📊 **AI Intelligence** – Real-time BUY or WAIT decisions  
+- 🏘 **Portfolio Tracker** – Track performance across simulated real estate
+
+---
+
+## 🔧 Tech Stack
+| Component        | Technology        |
+|------------------|-------------------|
+| **Frontend**     | Advanced Streamlit + HTML/CSS |
+| **Visualization**| Plotly Interactive Charts     |
+| **Data Handling**| Pandas, NumPy     |
+| **AI Engine**    | Predictive Modeling |
+| **UI Design**    | Futuristic Gaming Layout |
+
+---
+
+## 🕹️ Navigation Console
+- 🚀 **Mission Control Hub**
+- 🎮 **Life Stage Modes**
+- 📊 **Intelligence Center**
+- 📈 **Strategy Simulator**
+- 🔮 **Decision Matrix**
+- 🏘 **Asset Portfolio**
+- 📜 **Command Brief**
+
+---
+
+## 📦 File Structure
+```bash
+📄 mortgage_quest_app_upgraded.py   # Main app file
+📄 us_mortgage_data_fixed.csv       # Core dataset
+📄 requirements.txt                 # Python libraries
+📄 README.md                        # You're here!
