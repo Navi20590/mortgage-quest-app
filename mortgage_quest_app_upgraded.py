@@ -10,6 +10,7 @@ import time
 # ============================================================================
 # ENTERPRISE-LEVEL PAGE CONFIGURATION
 # ============================================================================
+
 st.set_page_config(
     page_title="🏡 Mortgage Quest Elite | AI-Powered Real Estate Intelligence",
     page_icon="🏡",
@@ -28,10 +29,11 @@ if 'scenarios_run' not in st.session_state:
 # ============================================================================
 # PREMIUM ENTERPRISE CSS STYLING
 # ============================================================================
+
 st.markdown("""
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
-    
+
     :root {
         --primary-gradient: linear-gradient(135deg, #ff006e 0%, #8338ec 100%);
         --secondary-gradient: linear-gradient(135deg, #06ffa5 0%, #00d4ff 100%);
@@ -47,15 +49,22 @@ st.markdown("""
         --glass-border: rgba(255, 255, 255, 0.2);
         --dark-bg: #0a0a0f;
         --card-bg: rgba(20, 20, 30, 0.9);
+
+        /* New contrast-friendly text colors */
+        --text-primary: #e0e0e0; /* Light gray for main text */
+        --text-secondary: #b0b0b0; /* Slightly darker gray for secondary text */
+        --text-accent: #ffffff; /* Pure white for highlights */
+        --text-error: #ff9999; /* Light red for errors */
+        --text-success: #99ff99; /* Light green for success */
     }
-    
+
     html, body, [class*="css"] {
         font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
         font-weight: 500;
         line-height: 1.6;
-        color: #ffffff;
+        color: var(--text-primary); /* Updated from #ffffff */
     }
-    
+
     .main {
         background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #16213e 100%);
         background-attachment: fixed;
@@ -63,7 +72,7 @@ st.markdown("""
         position: relative;
         overflow-x: hidden;
     }
-    
+
     .main::before {
         content: '';
         position: absolute;
@@ -71,25 +80,25 @@ st.markdown("""
         left: 0;
         right: 0;
         bottom: 0;
-        background: 
+        background:
             radial-gradient(circle at 20% 20%, rgba(255, 0, 110, 0.1) 0%, transparent 50%),
             radial-gradient(circle at 80% 80%, rgba(131, 56, 236, 0.1) 0%, transparent 50%),
             radial-gradient(circle at 60% 40%, rgba(6, 255, 165, 0.05) 0%, transparent 50%);
         pointer-events: none;
         animation: float 6s ease-in-out infinite;
     }
-    
+
     @keyframes float {
         0%, 100% { transform: translateY(0px); }
         50% { transform: translateY(-10px); }
     }
-    
+
     .block-container {
         padding: 2rem 1rem;
         background: var(--card-bg);
         border-radius: 25px;
         margin: 20px;
-        box-shadow: 
+        box-shadow:
             0 8px 32px 0 rgba(255, 0, 110, 0.3),
             0 0 20px rgba(131, 56, 236, 0.2),
             inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
@@ -100,7 +109,7 @@ st.markdown("""
         position: relative;
         overflow: hidden;
     }
-    
+
     .block-container::before {
         content: '';
         position: absolute;
@@ -111,12 +120,12 @@ st.markdown("""
         background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
         animation: shimmer 3s infinite;
     }
-    
+
     @keyframes shimmer {
         0% { left: -100%; }
         100% { left: 100%; }
     }
-    
+
     .hero-header {
         text-align: center;
         background: var(--primary-gradient);
@@ -130,12 +139,12 @@ st.markdown("""
         text-shadow: 0 0 30px rgba(255, 0, 110, 0.5);
         animation: glow 2s ease-in-out infinite alternate;
     }
-    
+
     @keyframes glow {
         from { filter: drop-shadow(0 0 20px rgba(255, 0, 110, 0.3)); }
         to { filter: drop-shadow(0 0 40px rgba(255, 0, 110, 0.8)); }
     }
-    
+
     .hero-subtitle {
         text-align: center;
         color: var(--neon-green);
@@ -146,7 +155,7 @@ st.markdown("""
         text-transform: uppercase;
         text-shadow: 0 0 10px rgba(6, 255, 165, 0.5);
     }
-    
+
     .premium-card {
         background: var(--card-bg);
         backdrop-filter: blur(20px);
@@ -156,15 +165,15 @@ st.markdown("""
         border-radius: 20px;
         padding: 2rem;
         margin: 1rem 0;
-        box-shadow: 
+        box-shadow:
             0 8px 32px 0 rgba(255, 0, 110, 0.2),
             0 0 20px rgba(131, 56, 236, 0.1);
         transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         position: relative;
         overflow: hidden;
-        color: #ffffff;
+        color: var(--text-primary); /* Updated from #ffffff */
     }
-    
+
     .premium-card::before {
         content: '';
         position: absolute;
@@ -175,14 +184,14 @@ st.markdown("""
         mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
         mask-composite: exclude;
     }
-    
+
     .premium-card:hover {
         transform: translateY(-10px) scale(1.02);
-        box-shadow: 
+        box-shadow:
             0 20px 60px 0 rgba(255, 0, 110, 0.4),
             0 0 40px rgba(131, 56, 236, 0.3);
     }
-    
+
     .metric-card {
         background: var(--card-bg);
         backdrop-filter: blur(20px);
@@ -192,7 +201,7 @@ st.markdown("""
         border-radius: 20px;
         padding: 2rem;
         text-align: center;
-        box-shadow: 
+        box-shadow:
             0 8px 32px 0 rgba(255, 0, 110, 0.2),
             0 0 20px rgba(0, 212, 255, 0.1),
             inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
@@ -200,17 +209,17 @@ st.markdown("""
         transition: all 0.3s ease;
         position: relative;
         overflow: hidden;
-        color: #ffffff;
+        color: var(--text-primary); /* Updated from #ffffff */
     }
-    
+
     .metric-card:hover {
         transform: translateY(-8px) rotateX(5deg);
-        box-shadow: 
+        box-shadow:
             0 15px 45px 0 rgba(255, 0, 110, 0.3),
             0 0 30px rgba(0, 212, 255, 0.2);
         border-image: linear-gradient(45deg, var(--neon-green), var(--neon-yellow)) 1;
     }
-    
+
     .metric-value {
         font-size: 3rem;
         font-weight: 900;
@@ -222,12 +231,12 @@ st.markdown("""
         text-shadow: 0 0 20px rgba(6, 255, 165, 0.5);
         animation: pulse-glow 2s ease-in-out infinite;
     }
-    
+
     @keyframes pulse-glow {
         0%, 100% { filter: drop-shadow(0 0 10px rgba(6, 255, 165, 0.3)); }
         50% { filter: drop-shadow(0 0 20px rgba(6, 255, 165, 0.8)); }
     }
-    
+
     .metric-label {
         color: var(--neon-blue);
         font-weight: 700;
@@ -236,14 +245,14 @@ st.markdown("""
         letter-spacing: 0.1em;
         text-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
     }
-    
+
     .metric-change {
         color: var(--neon-green);
         font-size: 0.9rem;
         font-weight: 600;
         text-shadow: 0 0 5px rgba(6, 255, 165, 0.3);
     }
-    
+
     .status-card {
         padding: 2.5rem;
         border-radius: 20px;
@@ -255,10 +264,10 @@ st.markdown("""
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
         transition: all 0.3s ease;
-        color: #ffffff;
+        color: var(--text-primary); /* Updated from #ffffff */
         font-weight: 600;
     }
-    
+
     .status-card::before {
         content: '';
         position: absolute;
@@ -269,48 +278,48 @@ st.markdown("""
         background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
         animation: scan 2s infinite;
     }
-    
+
     @keyframes scan {
         0% { left: -100%; }
         100% { left: 100%; }
     }
-    
+
     .status-card:hover {
         transform: translateY(-5px) scale(1.02);
     }
-    
+
     .success-card {
         background: var(--success-gradient);
         border-image: linear-gradient(45deg, var(--neon-green), #39ff14) 1;
-        box-shadow: 
+        box-shadow:
             0 15px 35px rgba(57, 255, 20, 0.4),
             0 0 30px rgba(6, 255, 165, 0.3);
     }
-    
+
     .warning-card {
         background: var(--warning-gradient);
         border-image: linear-gradient(45deg, var(--neon-yellow), #fb8500) 1;
-        box-shadow: 
+        box-shadow:
             0 15px 35px rgba(255, 190, 11, 0.4),
             0 0 30px rgba(251, 133, 0, 0.3);
     }
-    
+
     .danger-card {
         background: var(--danger-gradient);
         border-image: linear-gradient(45deg, var(--neon-pink), #ff5d8f) 1;
-        box-shadow: 
+        box-shadow:
             0 15px 35px rgba(255, 0, 110, 0.4),
             0 0 30px rgba(255, 93, 143, 0.3);
     }
-    
+
     .info-card {
         background: var(--primary-gradient);
         border-image: linear-gradient(45deg, var(--neon-purple), var(--neon-blue)) 1;
-        box-shadow: 
+        box-shadow:
             0 15px 35px rgba(131, 56, 236, 0.4),
             0 0 30px rgba(0, 212, 255, 0.3);
     }
-    
+
     .stButton > button {
         background: var(--primary-gradient);
         color: white;
@@ -320,7 +329,7 @@ st.markdown("""
         font-weight: 700;
         font-size: 1rem;
         transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        box-shadow: 
+        box-shadow:
             0 10px 30px rgba(255, 0, 110, 0.4),
             0 0 20px rgba(131, 56, 236, 0.3);
         text-transform: uppercase;
@@ -328,7 +337,7 @@ st.markdown("""
         position: relative;
         overflow: hidden;
     }
-    
+
     .stButton > button::before {
         content: '';
         position: absolute;
@@ -339,19 +348,19 @@ st.markdown("""
         background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
         transition: left 0.5s;
     }
-    
+
     .stButton > button:hover {
         transform: translateY(-3px) scale(1.05);
-        box-shadow: 
+        box-shadow:
             0 15px 40px rgba(255, 0, 110, 0.6),
             0 0 30px rgba(131, 56, 236, 0.5);
         border: 2px solid var(--neon-green);
     }
-    
+
     .stButton > button:hover::before {
         left: 100%;
     }
-    
+
     .progress-bar {
         height: 30px;
         border-radius: 15px;
@@ -360,11 +369,11 @@ st.markdown("""
         position: relative;
         margin: 1rem 0;
         border: 2px solid var(--neon-blue);
-        box-shadow: 
+        box-shadow:
             inset 0 0 20px rgba(0, 212, 255, 0.2),
             0 0 10px rgba(0, 212, 255, 0.3);
     }
-    
+
     .progress-fill {
         height: 100%;
         background: var(--secondary-gradient);
@@ -374,7 +383,7 @@ st.markdown("""
         overflow: hidden;
         box-shadow: 0 0 20px rgba(6, 255, 165, 0.5);
     }
-    
+
     .progress-fill::after {
         content: '';
         position: absolute;
@@ -395,12 +404,12 @@ st.markdown("""
         background-size: 50px 50px;
         animation: move 2s linear infinite;
     }
-    
+
     @keyframes move {
         0% { background-position: 0 0; }
         100% { background-position: 50px 50px; }
     }
-    
+
     .feature-card {
         background: var(--card-bg);
         backdrop-filter: blur(20px);
@@ -414,22 +423,22 @@ st.markdown("""
         position: relative;
         overflow: hidden;
         margin: 1rem 0;
-        color: #ffffff;
+        color: var(--text-primary); /* Updated from #ffffff */
         font-weight: 500;
     }
-    
+
     .feature-card:hover {
         transform: translateY(-15px) scale(1.05) rotateX(5deg);
         border-image: linear-gradient(45deg, var(--neon-green), var(--neon-blue), var(--neon-yellow)) 1;
-        box-shadow: 
+        box-shadow:
             0 25px 50px 0 rgba(255, 0, 110, 0.3),
             0 0 40px rgba(6, 255, 165, 0.2);
     }
-    
+
     .slide-in-animation {
         animation: slideIn 0.8s ease-out;
     }
-    
+
     @keyframes slideIn {
         from {
             opacity: 0;
@@ -440,22 +449,22 @@ st.markdown("""
             transform: translateY(0) rotateX(0deg);
         }
     }
-    
+
     .pulse-animation {
         animation: pulse-neon 1.5s ease-in-out infinite;
     }
-    
+
     @keyframes pulse-neon {
-        0%, 100% { 
+        0%, 100% {
             opacity: 1;
             box-shadow: 0 0 20px rgba(255, 0, 110, 0.3);
         }
-        50% { 
+        50% {
             opacity: 0.8;
             box-shadow: 0 0 40px rgba(255, 0, 110, 0.8);
         }
     }
-    
+
     .achievement-badge {
         background: var(--warning-gradient);
         color: white;
@@ -465,7 +474,7 @@ st.markdown("""
         font-weight: 700;
         margin: 0.25rem;
         display: inline-block;
-        box-shadow: 
+        box-shadow:
             0 5px 15px rgba(255, 190, 11, 0.4),
             0 0 20px rgba(251, 133, 0, 0.3);
         border: 1px solid var(--neon-yellow);
@@ -473,29 +482,26 @@ st.markdown("""
         letter-spacing: 0.05em;
         animation: badge-glow 2s ease-in-out infinite alternate;
     }
-    
+
     @keyframes badge-glow {
-        from { 
-            box-shadow: 
+        from {
+            box-shadow:
                 0 5px 15px rgba(255, 190, 11, 0.4),
                 0 0 20px rgba(251, 133, 0, 0.3);
         }
-        to { 
-            box-shadow: 
+        to {
+            box-shadow:
                 0 8px 20px rgba(255, 190, 11, 0.6),
                 0 0 30px rgba(251, 133, 0, 0.5);
         }
-    } { opacity: 0.7; }
     }
-    
-    /* Sidebar Gaming Style */
+
     .sidebar .sidebar-content {
         background: linear-gradient(180deg, var(--dark-bg) 0%, #1a1a2e 100%);
         border-right: 3px solid;
         border-image: linear-gradient(180deg, var(--neon-pink), var(--neon-purple), var(--neon-green)) 1;
     }
-    
-    /* Gaming Navigation Items */
+
     .stRadio > div > label {
         background: var(--card-bg);
         margin: 0.5rem 0;
@@ -504,74 +510,68 @@ st.markdown("""
         border: 2px solid transparent;
         transition: all 0.3s ease;
         cursor: pointer;
-        color: #ffffff;
+        color: var(--text-primary); /* Updated from #ffffff */
         font-weight: 600;
         text-transform: uppercase;
         letter-spacing: 0.05em;
     }
-    
+
     .stRadio > div > label:hover {
         border: 2px solid var(--neon-green);
         background: rgba(6, 255, 165, 0.1);
         transform: translateX(10px);
         box-shadow: 0 0 20px rgba(6, 255, 165, 0.3);
     }
-    
+
     .stRadio > div > label[data-checked="true"] {
         background: var(--primary-gradient);
         border: 2px solid var(--neon-pink);
         box-shadow: 0 0 30px rgba(255, 0, 110, 0.5);
         transform: translateX(15px) scale(1.02);
     }
-    
-    /* Gaming Toggle Switches */
+
     .stCheckbox > label {
-        color: #ffffff !important;
+        color: var(--text-primary) !important; /* Updated from #ffffff */
         font-weight: 600;
         text-shadow: 0 0 5px rgba(6, 255, 165, 0.3);
     }
-    
-    /* Gaming Headers */
+
     h1, h2, h3, h4, h5, h6 {
-        color: #ffffff;
+        color: var(--text-accent); /* Updated from #ffffff */
         font-weight: 700;
         text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
     }
-    
-    /* Gaming Text */
+
     p, div, span {
-        color: #ffffff;
+        color: var(--text-primary); /* Updated from #ffffff */
     }
-    
-    /* Gaming Input Fields */
+
     .stTextInput > div > div > input,
     .stNumberInput > div > div > input,
     .stSelectbox > div > div {
         background: var(--card-bg) !important;
         border: 2px solid var(--neon-blue) !important;
         border-radius: 15px !important;
-        color: #ffffff !important;
+        color: var(--text-accent) !important; /* Updated from #ffffff */
         font-weight: 600;
     }
-    
+
     .stTextInput > div > div > input:focus,
     .stNumberInput > div > div > input:focus {
         border: 2px solid var(--neon-green) !important;
         box-shadow: 0 0 20px rgba(6, 255, 165, 0.3) !important;
     }
-    
-    /* Gaming Sliders */
+
     .stSlider > div > div > div > div {
         background: var(--secondary-gradient) !important;
     }
-    
+
     .stSlider > div > div > div {
         background: var(--card-bg) !important;
         border: 2px solid var(--neon-blue);
         border-radius: 10px;
     }
-    
-    /* Gaming Metrics */
+
     .stMetric > div {
         background: var(--card-bg);
         padding: 1.5rem;
@@ -579,57 +579,53 @@ st.markdown("""
         border: 2px solid var(--neon-purple);
         box-shadow: 0 0 15px rgba(131, 56, 236, 0.3);
     }
-    
+
     .stMetric > div > div {
-        color: #ffffff !important;
+        color: var(--text-accent) !important; /* Updated from #ffffff */
         font-weight: 700;
     }
-    
-    /* Gaming Expanders */
+
     .streamlit-expanderHeader {
         background: var(--card-bg) !important;
         border: 2px solid var(--neon-blue) !important;
         border-radius: 15px !important;
-        color: #ffffff !important;
+        color: var(--text-accent) !important; /* Updated from #ffffff */
         font-weight: 700;
     }
-    
+
     .streamlit-expanderHeader:hover {
         border: 2px solid var(--neon-green) !important;
         box-shadow: 0 0 20px rgba(6, 255, 165, 0.3);
     }
-    
-    /* Gaming Tables */
+
     .stDataFrame {
         background: var(--card-bg);
         border-radius: 15px;
         border: 2px solid var(--neon-purple);
         overflow: hidden;
     }
-    
-    /* Gaming Charts Background */
+
     .js-plotly-plot {
         background: var(--card-bg) !important;
         border-radius: 15px;
         border: 2px solid var(--neon-blue);
         box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
     }
-    
-    /* Mobile Gaming Responsiveness */
+
     @media (max-width: 768px) {
         .block-container {
             margin: 10px;
             padding: 1rem;
         }
-        
+
         .hero-header {
             font-size: 2.5rem;
         }
-        
+
         .metric-card {
             padding: 1.5rem;
         }
-        
+
         .metric-value {
             font-size: 2rem;
         }
@@ -640,6 +636,7 @@ st.markdown("""
 # ============================================================================
 # GAMIFICATION SYSTEM
 # ============================================================================
+
 ACHIEVEMENTS = {
     "first_visit": {"name": "🏠 Welcome Home", "points": 50, "desc": "First visit to Dashboard"},
     "scenario_runner": {"name": "🎯 Scenario Master", "points": 100, "desc": "Run 10 scenarios"},
@@ -651,19 +648,15 @@ ACHIEVEMENTS = {
 def track_achievement(action):
     """Track user achievements and award points"""
     awarded = False
-    
     if action == "🎯 Command Center" and "first_visit" not in st.session_state.user_profile['achievements']:
         award_achievement("first_visit")
         awarded = True
-    
     if st.session_state.scenarios_run >= 5 and "scenario_runner" not in st.session_state.user_profile['achievements']:
         award_achievement("scenario_runner")
         awarded = True
-    
     if len(st.session_state.properties) >= 1 and "portfolio_starter" not in st.session_state.user_profile['achievements']:
         award_achievement("portfolio_starter")
         awarded = True
-    
     return awarded
 
 def award_achievement(achievement_id):
@@ -672,56 +665,40 @@ def award_achievement(achievement_id):
         achievement = ACHIEVEMENTS[achievement_id]
         st.session_state.user_profile['achievements'].append(achievement_id)
         st.session_state.user_profile['points'] += achievement['points']
-        
-        # Level up system
         new_level = (st.session_state.user_profile['points'] // 500) + 1
         if new_level > st.session_state.user_profile['level']:
             st.session_state.user_profile['level'] = new_level
             st.balloons()
             st.success(f"🎉 Level Up! You're now Level {new_level}!")
-        
         st.success(f"🏆 Achievement Unlocked: {achievement['name']} (+{achievement['points']} points)")
 
 # ============================================================================
 # ENTERPRISE DATA GENERATION & CACHING
 # ============================================================================
+
 @st.cache_data(ttl=300)
 def generate_enterprise_data():
     """Generate comprehensive, realistic mortgage market data"""
     np.random.seed(42)
     dates = pd.date_range(start='2020-01-01', end='2024-12-01', freq='D')
-    
-    # Advanced economic indicators
     base_rate = 3.0
     rate_volatility = np.random.normal(0, 0.02, len(dates))
     rate_trend = base_rate + np.cumsum(rate_volatility)
     rate_trend = np.clip(rate_trend, 1.5, 9.0)
-    
-    # Correlated unemployment data
     unemployment_base = 4.0
     unemployment = unemployment_base + np.cumsum(np.random.normal(0, 0.1, len(dates)))
     unemployment = np.clip(unemployment, 2.5, 18.0)
-    
-    # Housing price index with realistic trends
     hpi_base = 250
     seasonal_effect = 10 * np.sin(2 * np.pi * dates.dayofyear / 365.25)
     hpi_trend = hpi_base + np.cumsum(np.random.normal(0.05, 0.8, len(dates))) + seasonal_effect
     hpi_trend = np.clip(hpi_trend, 180, 450)
-    
-    # Advanced affordability calculations
     affordability = 100 - (rate_trend * 8) - (unemployment * 3) - ((hpi_trend - 250) * 0.1) + np.random.normal(0, 3, len(dates))
     affordability = np.clip(affordability, 15, 95)
-    
-    # Market sentiment
     sentiment = np.random.choice(['Bullish', 'Neutral', 'Bearish'], len(dates), p=[0.3, 0.4, 0.3])
-    
-    # Additional enterprise metrics
     construction_permits = 1200 + 200 * np.sin(2 * np.pi * dates.dayofyear / 365.25) + np.cumsum(np.random.normal(0, 20, len(dates)))
     construction_permits = np.clip(construction_permits, 800, 2000)
-    
     inventory_levels = 4.5 + np.cumsum(np.random.normal(0, 0.1, len(dates)))
     inventory_levels = np.clip(inventory_levels, 1.5, 8.0)
-    
     df = pd.DataFrame({
         'Date': dates,
         'Mortgage_Rate': rate_trend,
@@ -733,7 +710,6 @@ def generate_enterprise_data():
         'Inventory_Months': inventory_levels,
         'Market_Velocity': np.random.uniform(0.5, 2.5, len(dates))
     })
-    
     return df
 
 @st.cache_data
@@ -742,7 +718,6 @@ def calculate_market_metrics(df):
     latest = df.iloc[-1]
     prev_month = df.iloc[-30] if len(df) > 30 else df.iloc[0]
     prev_year = df.iloc[-365] if len(df) > 365 else df.iloc[0]
-    
     metrics = {
         'current_rate': latest['Mortgage_Rate'],
         'rate_change_month': latest['Mortgage_Rate'] - prev_month['Mortgage_Rate'],
@@ -755,12 +730,12 @@ def calculate_market_metrics(df):
         'market_health': 'Excellent' if latest['Affordability_Index'] > 70 else 'Good' if latest['Affordability_Index'] > 50 else 'Fair' if latest['Affordability_Index'] > 30 else 'Poor',
         'volatility': df['Mortgage_Rate'].tail(30).std()
     }
-    
     return metrics
 
 # ============================================================================
 # ADVANCED SIDEBAR NAVIGATION
 # ============================================================================
+
 with st.sidebar:
     st.markdown("""
     <div style="text-align: center; padding: 2rem 0;">
@@ -770,53 +745,39 @@ with st.sidebar:
         <p style="color: #06ffa5; font-size: 1rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; text-shadow: 0 0 10px rgba(6, 255, 165, 0.5);">AI-Powered Real Estate Intelligence</p>
     </div>
     """, unsafe_allow_html=True)
-    
-    # User Profile
     st.markdown(f"""
     <div style="background: var(--card-bg); padding: 1.5rem; border-radius: 20px; margin-bottom: 1rem; border: 2px solid; border-image: linear-gradient(45deg, var(--neon-purple), var(--neon-green)) 1; box-shadow: 0 0 30px rgba(131, 56, 236, 0.3);">
-        <div style="color: #ffffff; text-align: center;">
+        <div style="color: var(--text-primary); text-align: center;">
             <div style="font-size: 2.5rem; filter: drop-shadow(0 0 10px rgba(6, 255, 165, 0.5));">🎮</div>
             <div style="font-weight: 700; color: var(--neon-green); text-shadow: 0 0 10px rgba(6, 255, 165, 0.3); text-transform: uppercase;">Level {st.session_state.user_profile['level']} Gamer</div>
             <div style="color: var(--neon-blue); font-weight: 600; text-shadow: 0 0 5px rgba(0, 212, 255, 0.3);">{st.session_state.user_profile['points']} XP Points</div>
         </div>
     </div>
     """, unsafe_allow_html=True)
-    
-    # Navigation
     menu_options = [
         "🎯 Command Center",
-        "📊 Market Intelligence", 
+        "📊 Market Intelligence",
         "🧠 AI Scenario Lab",
         "💎 Decision Engine",
         "📈 Portfolio Suite",
         "ℹ️ Enterprise Info"
     ]
-    
     menu = st.radio("Navigate:", menu_options, key="main_nav")
-    
     st.markdown("---")
-    
-    # Quick controls
     st.markdown("### 🎮 Gaming Controls")
     real_time_updates = st.toggle("🔄 Real-time Data", value=True)
     expert_mode = st.toggle("🔬 Pro Gamer Mode", value=False)
     notifications = st.toggle("🔔 Battle Alerts", value=True)
-    
-    # Market health indicator
     df = generate_enterprise_data()
     metrics = calculate_market_metrics(df)
-    
     st.markdown("### 🏥 Market Battle Status")
     health_color = "#39ff14" if metrics['market_health'] == 'Excellent' else "#06ffa5" if metrics['market_health'] == 'Good' else "#ffbe0b" if metrics['market_health'] == 'Fair' else "#ff006e"
-    
     st.markdown(f"""
     <div style="background: {health_color}30; border: 2px solid {health_color}; padding: 1.5rem; border-radius: 20px; text-align: center; box-shadow: 0 0 25px {health_color}40;">
         <div style="color: {health_color}; font-weight: 700; font-size: 1.2rem; text-transform: uppercase; text-shadow: 0 0 10px {health_color}50;">{metrics['market_health']}</div>
-        <div style="color: #ffffff; font-size: 1rem; font-weight: 600;">{metrics['affordability']:.0f}/100 HP</div>
+        <div style="color: var(--text-primary); font-size: 1rem; font-weight: 600;">{metrics['affordability']:.0f}/100 HP</div>
     </div>
     """, unsafe_allow_html=True)
-    
-    # Achievements
     st.markdown("### 🏆 Achievements")
     for ach_id, ach in ACHIEVEMENTS.items():
         status = "✅" if ach_id in st.session_state.user_profile['achievements'] else "🔒"
@@ -833,14 +794,12 @@ track_achievement(menu)
 # ============================================================================
 # COMMAND CENTER - ENTERPRISE DASHBOARD
 # ============================================================================
+
 if menu == "🎯 Command Center":
     st.markdown('<h1 class="hero-header slide-in-animation">🎯 Mission Control Center</h1>', unsafe_allow_html=True)
     st.markdown('<p class="hero-subtitle">Real-time market intelligence at your fingertips</p>', unsafe_allow_html=True)
-    
-    # Live market alerts
     if notifications:
         alert_col1, alert_col2, alert_col3 = st.columns(3)
-        
         with alert_col1:
             if abs(metrics['rate_change_month']) > 0.25:
                 st.markdown(f"""
@@ -850,7 +809,6 @@ if menu == "🎯 Command Center":
                     <strong>{metrics['rate_change_month']:+.2f}% this month</strong>
                 </div>
                 """, unsafe_allow_html=True)
-        
         with alert_col2:
             if metrics['volatility'] > 0.5:
                 st.markdown(f"""
@@ -860,7 +818,6 @@ if menu == "🎯 Command Center":
                     <strong>{metrics['volatility']:.2f}% std dev</strong>
                 </div>
                 """, unsafe_allow_html=True)
-        
         with alert_col3:
             if latest_data['Affordability_Index'] < 40:
                 st.markdown(f"""
@@ -870,12 +827,8 @@ if menu == "🎯 Command Center":
                     <strong>{latest_data['Affordability_Index']:.0f}/100</strong>
                 </div>
                 """, unsafe_allow_html=True)
-    
-    # Premium KPI Dashboard
     st.markdown("### 📊 Executive KPI Dashboard")
-    
     kpi_col1, kpi_col2, kpi_col3, kpi_col4 = st.columns(4)
-    
     with kpi_col1:
         st.markdown(f"""
         <div class="metric-card slide-in-animation">
@@ -887,7 +840,6 @@ if menu == "🎯 Command Center":
             </div>
         </div>
         """, unsafe_allow_html=True)
-    
     with kpi_col2:
         st.markdown(f"""
         <div class="metric-card slide-in-animation">
@@ -899,7 +851,6 @@ if menu == "🎯 Command Center":
             </div>
         </div>
         """, unsafe_allow_html=True)
-    
     with kpi_col3:
         st.markdown(f"""
         <div class="metric-card slide-in-animation">
@@ -911,7 +862,6 @@ if menu == "🎯 Command Center":
             </div>
         </div>
         """, unsafe_allow_html=True)
-    
     with kpi_col4:
         st.markdown(f"""
         <div class="metric-card slide-in-animation">
@@ -923,102 +873,81 @@ if menu == "🎯 Command Center":
             </div>
         </div>
         """, unsafe_allow_html=True)
-    
     st.markdown("---")
-    
-    # Interactive overview chart
     fig = make_subplots(
         rows=2, cols=2,
         subplot_titles=('Mortgage Rates Trend', 'Unemployment vs Housing', 'Affordability Index', 'Market Sentiment'),
         specs=[[{"secondary_y": True}, {"secondary_y": True}],
                [{"secondary_y": False}, {"type": "pie"}]]
     )
-    
-    # Mortgage rates
     fig.add_trace(
-        go.Scatter(x=df['Date'], y=df['Mortgage_Rate'], name='Mortgage Rate', 
+        go.Scatter(x=df['Date'], y=df['Mortgage_Rate'], name='Mortgage Rate',
                   line=dict(color='#667eea', width=3)),
         row=1, col=1
     )
-    
-    # Unemployment vs Home prices
     fig.add_trace(
-        go.Scatter(x=df['Date'], y=df['Unemployment_Rate'], name='Unemployment', 
+        go.Scatter(x=df['Date'], y=df['Unemployment_Rate'], name='Unemployment',
                   line=dict(color='#ff9a9e', width=2)),
         row=1, col=2
     )
     fig.add_trace(
-        go.Scatter(x=df['Date'], y=df['Home_Price_Index'], name='Home Price Index', 
+        go.Scatter(x=df['Date'], y=df['Home_Price_Index'], name='Home Price Index',
                   line=dict(color='#764ba2', width=2)),
         row=1, col=2, secondary_y=True
     )
-    
-    # Affordability
     fig.add_trace(
         go.Scatter(x=df['Date'], y=df['Affordability_Index'], name='Affordability',
                   fill='tozeroy', line=dict(color='#a8edea', width=2)),
         row=2, col=1
     )
-    
-    # Market sentiment pie
     sentiment_counts = df['Market_Sentiment'].value_counts()
     fig.add_trace(
-        go.Pie(labels=sentiment_counts.index, values=sentiment_counts.values, 
+        go.Pie(labels=sentiment_counts.index, values=sentiment_counts.values,
                name="Market Sentiment", showlegend=False),
         row=2, col=2
     )
-    
     fig.update_layout(height=800, showlegend=True, title_text="Market Overview Dashboard")
     st.plotly_chart(fig, use_container_width=True)
 
 # ============================================================================
 # MARKET INTELLIGENCE PAGE
 # ============================================================================
+
 elif menu == "📊 Market Intelligence":
     st.markdown('<h1 class="hero-header slide-in-animation">📊 Market Intelligence Center</h1>', unsafe_allow_html=True)
     st.markdown('<p class="hero-subtitle">Advanced analytics and market insights</p>', unsafe_allow_html=True)
-    
-    # Interactive filters
     col1, col2, col3 = st.columns(3)
     with col1:
-        date_range = st.date_input("📅 Date Range", 
+        date_range = st.date_input("📅 Date Range",
                                  value=[df['Date'].min().date(), df['Date'].max().date()],
                                  min_value=df['Date'].min().date(),
                                  max_value=df['Date'].max().date())
-    
     with col2:
-        metrics_selection = st.multiselect("📈 Select Metrics", 
+        metrics_selection = st.multiselect("📈 Select Metrics",
                                ['Mortgage_Rate', 'Unemployment_Rate', 'Home_Price_Index', 'Affordability_Index'],
                                default=['Mortgage_Rate', 'Home_Price_Index'])
-    
     with col3:
         chart_type = st.selectbox("📊 Chart Type", ['Line', 'Area', 'Scatter'])
-    
-    # Filter data
     if len(date_range) == 2:
         mask = (df['Date'].dt.date >= date_range[0]) & (df['Date'].dt.date <= date_range[1])
         filtered_df = df.loc[mask]
     else:
         filtered_df = df
-    
-    # Create dynamic chart
     fig = go.Figure()
     colors = ['#667eea', '#764ba2', '#ff9a9e', '#a8edea']
-    
     for i, metric in enumerate(metrics_selection):
         if chart_type == 'Line':
-            fig.add_trace(go.Scatter(x=filtered_df['Date'], y=filtered_df[metric], 
+            fig.add_trace(go.Scatter(x=filtered_df['Date'], y=filtered_df[metric],
                                    mode='lines', name=metric.replace('_', ' '),
                                    line=dict(color=colors[i % len(colors)], width=3)))
         elif chart_type == 'Area':
-            fig.add_trace(go.Scatter(x=filtered_df['Date'], y=filtered_df[metric], 
+            fig.add_trace(go.Scatter(x=filtered_df['Date'], y=filtered_df[metric],
                                    fill='tonexty', name=metric.replace('_', ' '),
                                    line=dict(color=colors[i % len(colors)])))
         else:
-            fig.add_trace(go.Scatter(x=filtered_df['Date'], y=filtered_df[metric], 
+            fig.add_trace(go.Scatter(x=filtered_df['Date'], y=filtered_df[metric],
                                    mode='markers', name=metric.replace('_', ' '),
                                    marker=dict(color=colors[i % len(colors)], size=8)))
-    
     fig.update_layout(
         title="Advanced Market Analysis",
         xaxis_title="Date",
@@ -1026,63 +955,50 @@ elif menu == "📊 Market Intelligence":
         height=500,
         hovermode='x unified'
     )
-    
     st.plotly_chart(fig, use_container_width=True)
-    
-    # Statistical insights
     st.markdown("### 📊 Statistical Insights")
     col1, col2 = st.columns(2)
-    
     with col1:
         st.markdown("#### Correlation Matrix")
         corr_matrix = filtered_df[['Mortgage_Rate', 'Unemployment_Rate', 'Home_Price_Index', 'Affordability_Index']].corr()
-        fig_corr = px.imshow(corr_matrix, text_auto=True, aspect="auto", 
+        fig_corr = px.imshow(corr_matrix, text_auto=True, aspect="auto",
                             color_continuous_scale='RdBu_r', title="Market Correlations")
         st.plotly_chart(fig_corr, use_container_width=True)
-    
     with col2:
         st.markdown("#### Distribution Analysis")
         if metrics_selection:
             selected_metric = st.selectbox("Select metric for distribution", metrics_selection)
-            fig_hist = px.histogram(filtered_df, x=selected_metric, nbins=20, 
+            fig_hist = px.histogram(filtered_df, x=selected_metric, nbins=20,
                                   title=f"{selected_metric} Distribution")
             st.plotly_chart(fig_hist, use_container_width=True)
 
 # ============================================================================
 # AI SCENARIO LAB
 # ============================================================================
+
 elif menu == "🧠 AI Scenario Lab":
     st.markdown('<h1 class="hero-header slide-in-animation">🧠 AI Scenario Laboratory</h1>', unsafe_allow_html=True)
     st.markdown('<p class="hero-subtitle">Advanced scenario modeling and stress testing</p>', unsafe_allow_html=True)
-    
     st.markdown("### 🎮 Create Your Market Scenario")
-    
     col1, col2 = st.columns([1, 1])
-    
     with col1:
         st.markdown("#### Economic Parameters")
         interest_rate = st.slider("🏦 Federal Interest Rate (%)", 0.0, 10.0, 3.5, 0.1)
         unemployment = st.slider("📉 Unemployment Rate (%)", 0.0, 20.0, 5.0, 0.1)
         inflation = st.slider("💰 Inflation Rate (%)", -2.0, 10.0, 2.5, 0.1)
         gdp_growth = st.slider("📈 GDP Growth (%)", -5.0, 8.0, 2.0, 0.1)
-        
     with col2:
         st.markdown("#### Housing Market Factors")
         housing_supply = st.slider("🏘️ Housing Supply Index", 50, 200, 100, 5)
         construction_cost = st.slider("🔨 Construction Cost Index", 80, 150, 100, 5)
         demand_index = st.slider("🎯 Housing Demand Index", 60, 180, 100, 5)
-        location_factor = st.selectbox("📍 Market Location", 
+        location_factor = st.selectbox("📍 Market Location",
                                      ["Major Metro", "Suburban", "Rural", "Coastal"])
-    
-    # Scenario analysis
     st.markdown("---")
     col1, col2, col3 = st.columns(3)
-    
-    # Calculate scenario outcomes
     market_stress = (interest_rate * 0.3 + unemployment * 0.4 + inflation * 0.2 + abs(gdp_growth) * 0.1)
     affordability_score = max(0, 100 - market_stress * 8 - (construction_cost - 100) * 0.5)
     investment_score = max(0, gdp_growth * 10 + (demand_index - 100) * 0.3 - market_stress * 5)
-    
     with col1:
         if market_stress < 6:
             st.markdown(f"""
@@ -1108,7 +1024,6 @@ elif menu == "🧠 AI Scenario Lab":
                 <p>Challenging market conditions. Consider waiting or seek professional advice.</p>
             </div>
             """, unsafe_allow_html=True)
-    
     with col2:
         st.markdown(f"""
         <div class="metric-card">
@@ -1119,7 +1034,6 @@ elif menu == "🧠 AI Scenario Lab":
             </div>
         </div>
         """, unsafe_allow_html=True)
-    
     with col3:
         st.markdown(f"""
         <div class="metric-card">
@@ -1130,20 +1044,14 @@ elif menu == "🧠 AI Scenario Lab":
             </div>
         </div>
         """, unsafe_allow_html=True)
-    
-    # Run scenario button
     if st.button("🔮 Generate AI Analysis", type="primary"):
         st.session_state.scenarios_run += 1
-        
         progress_bar = st.progress(0)
         for i in range(100):
             time.sleep(0.01)
             progress_bar.progress(i + 1)
-        
         st.markdown("#### 📋 AI Analysis Results")
-        
         col1, col2 = st.columns(2)
-        
         with col1:
             st.markdown("**Market Outlook:**")
             if market_stress < 6:
@@ -1152,7 +1060,6 @@ elif menu == "🧠 AI Scenario Lab":
                 st.warning("🟡 Mixed signals, monitor key indicators")
             else:
                 st.error("🔴 Challenging conditions ahead")
-                
             st.markdown("**Key Risk Factors:**")
             if interest_rate > 6:
                 st.write("• High interest rates affecting affordability")
@@ -1160,7 +1067,6 @@ elif menu == "🧠 AI Scenario Lab":
                 st.write("• Elevated unemployment impacting demand")
             if inflation > 4:
                 st.write("• High inflation eroding purchasing power")
-        
         with col2:
             st.markdown("**Recommended Actions:**")
             if affordability_score > 70:
@@ -1176,57 +1082,43 @@ elif menu == "🧠 AI Scenario Lab":
 # ============================================================================
 # DECISION ENGINE
 # ============================================================================
+
 elif menu == "💎 Decision Engine":
     st.markdown('<h1 class="hero-header slide-in-animation">💎 AI-Powered Decision Engine</h1>', unsafe_allow_html=True)
     st.markdown('<p class="hero-subtitle">Personalized recommendations based on your unique profile</p>', unsafe_allow_html=True)
-    
     st.markdown("### 👤 Personal Profile Setup")
-    
     col1, col2, col3 = st.columns(3)
-    
     with col1:
         st.markdown("#### Financial Profile")
         annual_income = st.number_input("💰 Annual Income ($)", 30000, 500000, 75000, 5000)
         savings = st.number_input("🏦 Available Savings ($)", 0, 200000, 25000, 5000)
         debt_ratio = st.slider("💳 Debt-to-Income Ratio (%)", 0, 50, 15, 1)
         credit_score = st.slider("📊 Credit Score", 300, 850, 720, 5)
-    
     with col2:
         st.markdown("#### Preferences")
         home_price_range = st.slider("🏠 Target Home Price ($)", 100000, 800000, (250000, 400000), 10000)
         down_payment = st.slider("💵 Down Payment (%)", 3, 30, 20, 1)
-        time_horizon = st.selectbox("⏰ Purchase Timeline", 
-                                  ["Immediate (0-3 months)", "Short-term (3-12 months)", 
+        time_horizon = st.selectbox("⏰ Purchase Timeline",
+                                  ["Immediate (0-3 months)", "Short-term (3-12 months)",
                                    "Medium-term (1-2 years)", "Long-term (2+ years)"])
         risk_tolerance = st.selectbox("📊 Risk Tolerance", ["Conservative", "Moderate", "Aggressive"])
-    
     with col3:
         st.markdown("#### Location & Lifestyle")
-        location_type = st.selectbox("📍 Preferred Location", 
+        location_type = st.selectbox("📍 Preferred Location",
                                    ["Urban Core", "Suburban", "Rural", "Coastal"])
         family_size = st.selectbox("👨‍👩‍👧‍👦 Family Size", ["Single", "Couple", "Small Family (3-4)", "Large Family (5+)"])
         job_stability = st.selectbox("💼 Job Stability", ["Very Stable", "Stable", "Moderate", "Uncertain"])
         first_time_buyer = st.checkbox("🏠 First-time Homebuyer")
-    
     if st.button("🧠 Generate AI Recommendation", type="primary"):
-        # Simulate AI processing
         with st.spinner("🤖 AI analyzing your profile..."):
             time.sleep(2)
-        
-        # Calculate recommendation scores
-        financial_readiness = min(100, (savings / (home_price_range[0] * down_payment / 100)) * 50 + 
+        financial_readiness = min(100, (savings / (home_price_range[0] * down_payment / 100)) * 50 +
                                 (800 - max(300, credit_score)) / 5.5 * 50)
-        
         market_timing = max(0, 100 - latest_data['Mortgage_Rate'] * 10 - latest_data['Unemployment_Rate'] * 5)
-        
         overall_score = (financial_readiness * 0.6 + market_timing * 0.4)
-        
-        # Display results
         st.markdown("---")
         st.markdown("### 🎯 Your Personalized Recommendation")
-        
         col1, col2, col3 = st.columns(3)
-        
         with col1:
             st.markdown(f"""
             <div class="metric-card">
@@ -1237,7 +1129,6 @@ elif menu == "💎 Decision Engine":
                 </div>
             </div>
             """, unsafe_allow_html=True)
-        
         with col2:
             st.markdown(f"""
             <div class="metric-card">
@@ -1248,7 +1139,6 @@ elif menu == "💎 Decision Engine":
                 </div>
             </div>
             """, unsafe_allow_html=True)
-        
         with col3:
             st.markdown(f"""
             <div class="metric-card">
@@ -1259,8 +1149,6 @@ elif menu == "💎 Decision Engine":
                 </div>
             </div>
             """, unsafe_allow_html=True)
-        
-        # Recommendation logic
         if overall_score >= 75:
             st.markdown(f"""
             <div class="status-card success-card">
@@ -1304,13 +1192,11 @@ elif menu == "💎 Decision Engine":
 # ============================================================================
 # PORTFOLIO SUITE
 # ============================================================================
+
 elif menu == "📈 Portfolio Suite":
     st.markdown('<h1 class="hero-header slide-in-animation">📈 Real Estate Portfolio Manager</h1>', unsafe_allow_html=True)
     st.markdown('<p class="hero-subtitle">Track and optimize your real estate investments</p>', unsafe_allow_html=True)
-    
-    # Portfolio input
     st.markdown("### 🏠 Your Properties")
-    
     with st.expander("➕ Add New Property", expanded=len(st.session_state.properties) == 0):
         col1, col2, col3 = st.columns(3)
         with col1:
@@ -1320,10 +1206,9 @@ elif menu == "📈 Portfolio Suite":
             purchase_date = st.date_input("📅 Purchase Date")
             current_value = st.number_input("📈 Current Estimated Value ($)", 0, 2000000, 350000)
         with col3:
-            property_type = st.selectbox("🏘️ Property Type", 
+            property_type = st.selectbox("🏘️ Property Type",
                                        ["Single Family", "Condo", "Townhouse", "Multi-Family"])
             monthly_payment = st.number_input("💳 Monthly Payment ($)", 0, 10000, 1800)
-        
         if st.button("➕ Add Property") and prop_address:
             st.session_state.properties.append({
                 'address': prop_address,
@@ -1335,15 +1220,11 @@ elif menu == "📈 Portfolio Suite":
             })
             st.success("Property added successfully!")
             st.rerun()
-    
-    # Display portfolio
     if st.session_state.properties:
         st.markdown("### 📊 Portfolio Overview")
-        
         total_purchase = sum(p['purchase_price'] for p in st.session_state.properties)
         total_current = sum(p['current_value'] for p in st.session_state.properties)
         total_equity = total_current - total_purchase
-        
         col1, col2, col3, col4 = st.columns(4)
         with col1:
             st.metric("🏠 Properties", len(st.session_state.properties))
@@ -1353,8 +1234,6 @@ elif menu == "📈 Portfolio Suite":
             st.metric("📈 Current Value", f"${total_current:,.0f}")
         with col4:
             st.metric("💎 Total Equity", f"${total_equity:,.0f}", f"{((total_equity/total_purchase)*100):+.1f}%")
-        
-        # Property details
         for i, prop in enumerate(st.session_state.properties):
             with st.expander(f"🏠 {prop['address']} - {prop['property_type']}"):
                 col1, col2 = st.columns(2)
@@ -1372,85 +1251,72 @@ elif menu == "📈 Portfolio Suite":
 # ============================================================================
 # ENTERPRISE INFO PAGE
 # ============================================================================
+
 elif menu == "ℹ️ Enterprise Info":
     st.markdown('<h1 class="hero-header slide-in-animation">ℹ️ About Mortgage Quest Elite</h1>', unsafe_allow_html=True)
-    
     col1, col2 = st.columns([2, 1])
-    
     with col1:
         st.markdown("""
         <div class="feature-card">
-            <h2>🎯 Mission Statement</h2>
-            <p><strong>Mortgage Quest Elite</strong> is an advanced strategic simulation platform that empowers users to navigate the complex U.S. housing market with confidence and data-driven insights.</p>
-            
-            <h3>🚀 Key Features:</h3>
-            <ul>
+            <h2 style="color: var(--text-accent);">🎯 Mission Statement</h2>
+            <p style="color: var(--text-primary);"><strong>Mortgage Quest Elite</strong> is an advanced strategic simulation platform that empowers users to navigate the complex U.S. housing market with confidence and data-driven insights.</p>
+            <h3 style="color: var(--text-accent);">🚀 Key Features:</h3>
+            <ul style="color: var(--text-primary);">
                 <li><strong>Real-time Market Intelligence:</strong> Live tracking of mortgage rates, unemployment, and housing indices</li>
                 <li><strong>Advanced Scenario Modeling:</strong> Simulate economic conditions and predict market outcomes</li>
                 <li><strong>AI-Powered Decision Engine:</strong> Personalized recommendations based on your financial profile</li>
                 <li><strong>Portfolio Management:</strong> Track and analyze your real estate investments</li>
                 <li><strong>Professional Analytics:</strong> Institutional-grade tools for serious investors</li>
             </ul>
-            
-            <h3>🎓 Academic Excellence:</h3>
-            <p>Developed for the <strong>NYU Stern Fintech Capstone</strong> by team <strong>BEFMNS</strong>, this application represents the intersection of cutting-edge financial technology and practical real estate decision-making.</p>
+            <h3 style="color: var(--text-accent);">🎓 Academic Excellence:</h3>
+            <p style="color: var(--text-primary);">Developed for the <strong>NYU Stern Fintech Capstone</strong> by team <strong>BEFMNS</strong>, this application represents the intersection of cutting-edge financial technology and practical real estate decision-making.</p>
         </div>
         """, unsafe_allow_html=True)
-    
     with col2:
         st.markdown("""
         <div class="feature-card">
-            <h3>🔧 Technology Stack</h3>
-            <p><strong>Frontend:</strong> Streamlit with custom CSS</p>
-            <p><strong>Visualization:</strong> Plotly & Interactive Charts</p>
-            <p><strong>Data Processing:</strong> Pandas & NumPy</p>
-            <p><strong>Analytics:</strong> Statistical Modeling</p>
-            <p><strong>Design:</strong> Modern UI/UX Principles</p>
-            
-            <h3>📊 Data Sources</h3>
-            <p>• Federal Reserve Economic Data (FRED)</p>
-            <p>• New York Federal Reserve</p>
-            <p>• Bureau of Labor Statistics</p>
-            <p>• Housing Market Indices</p>
-            
-            <h3>🎮 Gamification Elements</h3>
-            <p>• Interactive Scenarios</p>
-            <p>• Progress Tracking</p>
-            <p>• Achievement System</p>
-            <p>• Real-time Feedback</p>
+            <h3 style="color: var(--text-accent);">🔧 Technology Stack</h3>
+            <p style="color: var(--text-primary);"><strong>Frontend:</strong> Streamlit with custom CSS</p>
+            <p style="color: var(--text-primary);"><strong>Visualization:</strong> Plotly & Interactive Charts</p>
+            <p style="color: var(--text-primary);"><strong>Data Processing:</strong> Pandas & NumPy</p>
+            <p style="color: var(--text-primary);"><strong>Analytics:</strong> Statistical Modeling</p>
+            <p style="color: var(--text-primary);"><strong>Design:</strong> Modern UI/UX Principles</p>
+            <h3 style="color: var(--text-accent);">📊 Data Sources</h3>
+            <p style="color: var(--text-primary);">• Federal Reserve Economic Data (FRED)</p>
+            <p style="color: var(--text-primary);">• New York Federal Reserve</p>
+            <p style="color: var(--text-primary);">• Bureau of Labor Statistics</p>
+            <p style="color: var(--text-primary);">• Housing Market Indices</p>
+            <h3 style="color: var(--text-accent);">🎮 Gamification Elements</h3>
+            <p style="color: var(--text-primary);">• Interactive Scenarios</p>
+            <p style="color: var(--text-primary);">• Progress Tracking</p>
+            <p style="color: var(--text-primary);">• Achievement System</p>
+            <p style="color: var(--text-primary);">• Real-time Feedback</p>
         </div>
         """, unsafe_allow_html=True)
-    
     st.markdown("---")
-    
-    # Team information
     st.markdown("### 👥 Meet the Team - BEFMNS")
     team_col1, team_col2, team_col3 = st.columns(3)
-    
     with team_col1:
         st.markdown("""
         <div class="feature-card">
-            <h4>🎯 Strategy & Analytics</h4>
-            <p>Financial modeling and market analysis experts bringing Wall Street insights to Main Street decisions.</p>
+            <h4 style="color: var(--text-accent);">🎯 Strategy & Analytics</h4>
+            <p style="color: var(--text-primary);">Financial modeling and market analysis experts bringing Wall Street insights to Main Street decisions.</p>
         </div>
         """, unsafe_allow_html=True)
-    
     with team_col2:
         st.markdown("""
         <div class="feature-card">
-            <h4>💻 Technology & Development</h4>
-            <p>Full-stack developers and data scientists creating scalable fintech solutions.</p>
+            <h4 style="color: var(--text-accent);">💻 Technology & Development</h4>
+            <p style="color: var(--text-primary);">Full-stack developers and data scientists creating scalable fintech solutions.</p>
         </div>
         """, unsafe_allow_html=True)
-    
     with team_col3:
         st.markdown("""
         <div class="feature-card">
-            <h4>🎨 Design & Experience</h4>
-            <p>UX/UI specialists focused on making complex financial data accessible and actionable.</p>
+            <h4 style="color: var(--text-accent);">🎨 Design & Experience</h4>
+            <p style="color: var(--text-primary);">UX/UI specialists focused on making complex financial data accessible and actionable.</p>
         </div>
         """, unsafe_allow_html=True)
-    
     st.markdown("---")
     st.markdown("""
     <div style="text-align: center; padding: 2rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 15px; color: white;">
