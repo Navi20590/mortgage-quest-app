@@ -33,28 +33,35 @@ st.markdown("""
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
     
     :root {
-        --primary-gradient: linear-gradient(135deg, #2d3748 0%, #4a5568 100%);
-        --secondary-gradient: linear-gradient(135deg, #38b2ac 0%, #319795 100%);
-        --success-gradient: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
-        --warning-gradient: linear-gradient(135deg, #ed8936 0%, #dd6b20 100%);
-        --danger-gradient: linear-gradient(135deg, #f56565 0%, #e53e3e 100%);
-        --glass-bg: rgba(255, 255, 255, 0.95);
-        --glass-border: rgba(255, 255, 255, 0.3);
-        --dark-glass-bg: rgba(45, 55, 72, 0.1);
-        --accent-color: #38b2ac;
+        --primary-gradient: linear-gradient(135deg, #ff006e 0%, #8338ec 100%);
+        --secondary-gradient: linear-gradient(135deg, #06ffa5 0%, #00d4ff 100%);
+        --success-gradient: linear-gradient(135deg, #39ff14 0%, #06ffa5 100%);
+        --warning-gradient: linear-gradient(135deg, #ffbe0b 0%, #fb8500 100%);
+        --danger-gradient: linear-gradient(135deg, #ff006e 0%, #ff5d8f 100%);
+        --neon-pink: #ff006e;
+        --neon-purple: #8338ec;
+        --neon-green: #06ffa5;
+        --neon-blue: #00d4ff;
+        --neon-yellow: #ffbe0b;
+        --glass-bg: rgba(0, 0, 0, 0.8);
+        --glass-border: rgba(255, 255, 255, 0.2);
+        --dark-bg: #0a0a0f;
+        --card-bg: rgba(20, 20, 30, 0.9);
     }
     
     html, body, [class*="css"] {
         font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-        font-weight: 400;
+        font-weight: 500;
         line-height: 1.6;
+        color: #ffffff;
     }
     
     .main {
-        background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+        background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #16213e 100%);
         background-attachment: fixed;
         min-height: 100vh;
         position: relative;
+        overflow-x: hidden;
     }
     
     .main::before {
@@ -64,23 +71,50 @@ st.markdown("""
         left: 0;
         right: 0;
         bottom: 0;
-        background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23718096' fill-opacity='0.02'%3E%3Ccircle cx='30' cy='30' r='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        background: 
+            radial-gradient(circle at 20% 20%, rgba(255, 0, 110, 0.1) 0%, transparent 50%),
+            radial-gradient(circle at 80% 80%, rgba(131, 56, 236, 0.1) 0%, transparent 50%),
+            radial-gradient(circle at 60% 40%, rgba(6, 255, 165, 0.05) 0%, transparent 50%);
         pointer-events: none;
+        animation: float 6s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-10px); }
     }
     
     .block-container {
         padding: 2rem 1rem;
-        background: var(--glass-bg);
+        background: var(--card-bg);
         border-radius: 25px;
         margin: 20px;
         box-shadow: 
-            0 8px 32px 0 rgba(45, 55, 72, 0.1),
-            inset 0 1px 0 0 rgba(255, 255, 255, 0.8);
+            0 8px 32px 0 rgba(255, 0, 110, 0.3),
+            0 0 20px rgba(131, 56, 236, 0.2),
+            inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
-        border: 1px solid var(--glass-border);
+        border: 2px solid;
+        border-image: linear-gradient(45deg, var(--neon-pink), var(--neon-purple), var(--neon-green)) 1;
         position: relative;
         overflow: hidden;
+    }
+    
+    .block-container::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+        animation: shimmer 3s infinite;
+    }
+    
+    @keyframes shimmer {
+        0% { left: -100%; }
+        100% { left: 100%; }
     }
     
     .hero-header {
@@ -90,89 +124,124 @@ st.markdown("""
         -webkit-text-fill-color: transparent;
         background-clip: text;
         font-size: clamp(2.5rem, 5vw, 4rem);
-        font-weight: 800;
+        font-weight: 900;
         margin: 2rem 0;
         letter-spacing: -0.02em;
+        text-shadow: 0 0 30px rgba(255, 0, 110, 0.5);
+        animation: glow 2s ease-in-out infinite alternate;
+    }
+    
+    @keyframes glow {
+        from { filter: drop-shadow(0 0 20px rgba(255, 0, 110, 0.3)); }
+        to { filter: drop-shadow(0 0 40px rgba(255, 0, 110, 0.8)); }
     }
     
     .hero-subtitle {
         text-align: center;
-        color: #4a5568;
+        color: var(--neon-green);
         font-size: 1.25rem;
-        font-weight: 300;
+        font-weight: 600;
         margin-bottom: 3rem;
-        letter-spacing: 0.01em;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        text-shadow: 0 0 10px rgba(6, 255, 165, 0.5);
     }
     
     .premium-card {
-        background: var(--glass-bg);
+        background: var(--card-bg);
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
-        border: 1px solid var(--glass-border);
+        border: 2px solid transparent;
+        background-clip: padding-box;
         border-radius: 20px;
         padding: 2rem;
         margin: 1rem 0;
         box-shadow: 
-            0 8px 32px 0 rgba(45, 55, 72, 0.1),
-            inset 0 1px 0 0 rgba(255, 255, 255, 0.8);
+            0 8px 32px 0 rgba(255, 0, 110, 0.2),
+            0 0 20px rgba(131, 56, 236, 0.1);
         transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         position: relative;
         overflow: hidden;
+        color: #ffffff;
+    }
+    
+    .premium-card::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        padding: 2px;
+        background: linear-gradient(45deg, var(--neon-pink), var(--neon-purple), var(--neon-green));
+        border-radius: inherit;
+        mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        mask-composite: exclude;
     }
     
     .premium-card:hover {
-        transform: translateY(-8px) scale(1.02);
+        transform: translateY(-10px) scale(1.02);
         box-shadow: 
-            0 20px 60px 0 rgba(45, 55, 72, 0.15),
-            inset 0 1px 0 0 rgba(255, 255, 255, 0.9);
+            0 20px 60px 0 rgba(255, 0, 110, 0.4),
+            0 0 40px rgba(131, 56, 236, 0.3);
     }
     
     .metric-card {
-        background: var(--glass-bg);
+        background: var(--card-bg);
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
-        border: 1px solid var(--glass-border);
+        border: 2px solid;
+        border-image: linear-gradient(45deg, var(--neon-pink), var(--neon-blue)) 1;
         border-radius: 20px;
         padding: 2rem;
         text-align: center;
         box-shadow: 
-            0 8px 32px 0 rgba(45, 55, 72, 0.1),
-            inset 0 1px 0 0 rgba(255, 255, 255, 0.8);
+            0 8px 32px 0 rgba(255, 0, 110, 0.2),
+            0 0 20px rgba(0, 212, 255, 0.1),
+            inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
         margin: 1rem 0;
         transition: all 0.3s ease;
         position: relative;
         overflow: hidden;
+        color: #ffffff;
     }
     
     .metric-card:hover {
-        transform: translateY(-5px);
+        transform: translateY(-8px) rotateX(5deg);
         box-shadow: 
-            0 15px 45px 0 rgba(45, 55, 72, 0.15),
-            inset 0 1px 0 0 rgba(255, 255, 255, 0.9);
+            0 15px 45px 0 rgba(255, 0, 110, 0.3),
+            0 0 30px rgba(0, 212, 255, 0.2);
+        border-image: linear-gradient(45deg, var(--neon-green), var(--neon-yellow)) 1;
     }
     
     .metric-value {
-        font-size: 2.5rem;
-        font-weight: 700;
+        font-size: 3rem;
+        font-weight: 900;
         background: var(--secondary-gradient);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
         margin: 0.5rem 0;
+        text-shadow: 0 0 20px rgba(6, 255, 165, 0.5);
+        animation: pulse-glow 2s ease-in-out infinite;
+    }
+    
+    @keyframes pulse-glow {
+        0%, 100% { filter: drop-shadow(0 0 10px rgba(6, 255, 165, 0.3)); }
+        50% { filter: drop-shadow(0 0 20px rgba(6, 255, 165, 0.8)); }
     }
     
     .metric-label {
-        color: #2d3748;
-        font-weight: 600;
+        color: var(--neon-blue);
+        font-weight: 700;
         font-size: 1rem;
         text-transform: uppercase;
-        letter-spacing: 0.05em;
+        letter-spacing: 0.1em;
+        text-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
     }
     
     .metric-change {
-        color: #718096;
+        color: var(--neon-green);
         font-size: 0.9rem;
-        font-weight: 400;
+        font-weight: 600;
+        text-shadow: 0 0 5px rgba(6, 255, 165, 0.3);
     }
     
     .status-card {
@@ -182,76 +251,128 @@ st.markdown("""
         margin: 1.5rem 0;
         position: relative;
         overflow: hidden;
-        border: 1px solid var(--glass-border);
+        border: 2px solid;
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
         transition: all 0.3s ease;
+        color: #ffffff;
+        font-weight: 600;
+    }
+    
+    .status-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        animation: scan 2s infinite;
+    }
+    
+    @keyframes scan {
+        0% { left: -100%; }
+        100% { left: 100%; }
     }
     
     .status-card:hover {
-        transform: translateY(-5px);
+        transform: translateY(-5px) scale(1.02);
     }
     
     .success-card {
         background: var(--success-gradient);
-        color: white;
-        box-shadow: 0 15px 35px rgba(72, 187, 120, 0.3);
+        border-image: linear-gradient(45deg, var(--neon-green), #39ff14) 1;
+        box-shadow: 
+            0 15px 35px rgba(57, 255, 20, 0.4),
+            0 0 30px rgba(6, 255, 165, 0.3);
     }
     
     .warning-card {
         background: var(--warning-gradient);
-        color: white;
-        box-shadow: 0 15px 35px rgba(237, 137, 54, 0.3);
+        border-image: linear-gradient(45deg, var(--neon-yellow), #fb8500) 1;
+        box-shadow: 
+            0 15px 35px rgba(255, 190, 11, 0.4),
+            0 0 30px rgba(251, 133, 0, 0.3);
     }
     
     .danger-card {
         background: var(--danger-gradient);
-        color: white;
-        box-shadow: 0 15px 35px rgba(245, 101, 101, 0.3);
+        border-image: linear-gradient(45deg, var(--neon-pink), #ff5d8f) 1;
+        box-shadow: 
+            0 15px 35px rgba(255, 0, 110, 0.4),
+            0 0 30px rgba(255, 93, 143, 0.3);
     }
     
     .info-card {
-        background: var(--secondary-gradient);
-        color: white;
-        box-shadow: 0 15px 35px rgba(56, 178, 172, 0.3);
+        background: var(--primary-gradient);
+        border-image: linear-gradient(45deg, var(--neon-purple), var(--neon-blue)) 1;
+        box-shadow: 
+            0 15px 35px rgba(131, 56, 236, 0.4),
+            0 0 30px rgba(0, 212, 255, 0.3);
     }
     
     .stButton > button {
-        background: var(--secondary-gradient);
+        background: var(--primary-gradient);
         color: white;
-        border: none;
+        border: 2px solid transparent;
         padding: 1rem 2.5rem;
         border-radius: 50px;
-        font-weight: 600;
+        font-weight: 700;
         font-size: 1rem;
         transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        box-shadow: 0 10px 30px rgba(56, 178, 172, 0.4);
+        box-shadow: 
+            0 10px 30px rgba(255, 0, 110, 0.4),
+            0 0 20px rgba(131, 56, 236, 0.3);
         text-transform: uppercase;
-        letter-spacing: 0.05em;
+        letter-spacing: 0.1em;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .stButton > button::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+        transition: left 0.5s;
     }
     
     .stButton > button:hover {
         transform: translateY(-3px) scale(1.05);
-        box-shadow: 0 15px 40px rgba(56, 178, 172, 0.6);
+        box-shadow: 
+            0 15px 40px rgba(255, 0, 110, 0.6),
+            0 0 30px rgba(131, 56, 236, 0.5);
+        border: 2px solid var(--neon-green);
+    }
+    
+    .stButton > button:hover::before {
+        left: 100%;
     }
     
     .progress-bar {
-        height: 25px;
+        height: 30px;
         border-radius: 15px;
-        background: rgba(226, 232, 240, 0.8);
+        background: rgba(26, 26, 46, 0.8);
         overflow: hidden;
         position: relative;
         margin: 1rem 0;
-        border: 1px solid rgba(226, 232, 240, 0.5);
+        border: 2px solid var(--neon-blue);
+        box-shadow: 
+            inset 0 0 20px rgba(0, 212, 255, 0.2),
+            0 0 10px rgba(0, 212, 255, 0.3);
     }
     
     .progress-fill {
         height: 100%;
         background: var(--secondary-gradient);
-        border-radius: 15px;
+        border-radius: 13px;
         transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
         position: relative;
         overflow: hidden;
+        box-shadow: 0 0 20px rgba(6, 255, 165, 0.5);
     }
     
     .progress-fill::after {
@@ -281,10 +402,11 @@ st.markdown("""
     }
     
     .feature-card {
-        background: var(--glass-bg);
+        background: var(--card-bg);
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
-        border: 1px solid var(--glass-border);
+        border: 2px solid;
+        border-image: linear-gradient(45deg, var(--neon-pink), var(--neon-purple), var(--neon-green)) 1;
         border-radius: 20px;
         padding: 2.5rem;
         text-align: center;
@@ -292,38 +414,46 @@ st.markdown("""
         position: relative;
         overflow: hidden;
         margin: 1rem 0;
-        color: #2d3748;
+        color: #ffffff;
+        font-weight: 500;
     }
     
     .feature-card:hover {
-        transform: translateY(-10px) scale(1.03);
+        transform: translateY(-15px) scale(1.05) rotateX(5deg);
+        border-image: linear-gradient(45deg, var(--neon-green), var(--neon-blue), var(--neon-yellow)) 1;
         box-shadow: 
-            0 25px 50px 0 rgba(45, 55, 72, 0.15),
-            inset 0 1px 0 0 rgba(255, 255, 255, 0.9);
+            0 25px 50px 0 rgba(255, 0, 110, 0.3),
+            0 0 40px rgba(6, 255, 165, 0.2);
     }
     
     .slide-in-animation {
-        animation: slideIn 0.5s ease-out;
+        animation: slideIn 0.8s ease-out;
     }
     
     @keyframes slideIn {
         from {
             opacity: 0;
-            transform: translateY(30px);
+            transform: translateY(50px) rotateX(20deg);
         }
         to {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateY(0) rotateX(0deg);
         }
     }
     
     .pulse-animation {
-        animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        animation: pulse-neon 1.5s ease-in-out infinite;
     }
     
-    @keyframes pulse {
-        0%, 100% { opacity: 1; }
-        50% { opacity: 0.7; }
+    @keyframes pulse-neon {
+        0%, 100% { 
+            opacity: 1;
+            box-shadow: 0 0 20px rgba(255, 0, 110, 0.3);
+        }
+        50% { 
+            opacity: 0.8;
+            box-shadow: 0 0 40px rgba(255, 0, 110, 0.8);
+        }
     }
     
     .achievement-badge {
@@ -332,10 +462,177 @@ st.markdown("""
         padding: 0.5rem 1rem;
         border-radius: 25px;
         font-size: 0.8rem;
-        font-weight: 600;
+        font-weight: 700;
         margin: 0.25rem;
         display: inline-block;
-        box-shadow: 0 5px 15px rgba(237, 137, 54, 0.3);
+        box-shadow: 
+            0 5px 15px rgba(255, 190, 11, 0.4),
+            0 0 20px rgba(251, 133, 0, 0.3);
+        border: 1px solid var(--neon-yellow);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        animation: badge-glow 2s ease-in-out infinite alternate;
+    }
+    
+    @keyframes badge-glow {
+        from { 
+            box-shadow: 
+                0 5px 15px rgba(255, 190, 11, 0.4),
+                0 0 20px rgba(251, 133, 0, 0.3);
+        }
+        to { 
+            box-shadow: 
+                0 8px 20px rgba(255, 190, 11, 0.6),
+                0 0 30px rgba(251, 133, 0, 0.5);
+        }
+    } { opacity: 0.7; }
+    }
+    
+    /* Sidebar Gaming Style */
+    .sidebar .sidebar-content {
+        background: linear-gradient(180deg, var(--dark-bg) 0%, #1a1a2e 100%);
+        border-right: 3px solid;
+        border-image: linear-gradient(180deg, var(--neon-pink), var(--neon-purple), var(--neon-green)) 1;
+    }
+    
+    /* Gaming Navigation Items */
+    .stRadio > div > label {
+        background: var(--card-bg);
+        margin: 0.5rem 0;
+        padding: 1rem;
+        border-radius: 15px;
+        border: 2px solid transparent;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        color: #ffffff;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+    
+    .stRadio > div > label:hover {
+        border: 2px solid var(--neon-green);
+        background: rgba(6, 255, 165, 0.1);
+        transform: translateX(10px);
+        box-shadow: 0 0 20px rgba(6, 255, 165, 0.3);
+    }
+    
+    .stRadio > div > label[data-checked="true"] {
+        background: var(--primary-gradient);
+        border: 2px solid var(--neon-pink);
+        box-shadow: 0 0 30px rgba(255, 0, 110, 0.5);
+        transform: translateX(15px) scale(1.02);
+    }
+    
+    /* Gaming Toggle Switches */
+    .stCheckbox > label {
+        color: #ffffff !important;
+        font-weight: 600;
+        text-shadow: 0 0 5px rgba(6, 255, 165, 0.3);
+    }
+    
+    /* Gaming Headers */
+    h1, h2, h3, h4, h5, h6 {
+        color: #ffffff;
+        font-weight: 700;
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    }
+    
+    /* Gaming Text */
+    p, div, span {
+        color: #ffffff;
+    }
+    
+    /* Gaming Input Fields */
+    .stTextInput > div > div > input,
+    .stNumberInput > div > div > input,
+    .stSelectbox > div > div {
+        background: var(--card-bg) !important;
+        border: 2px solid var(--neon-blue) !important;
+        border-radius: 15px !important;
+        color: #ffffff !important;
+        font-weight: 600;
+    }
+    
+    .stTextInput > div > div > input:focus,
+    .stNumberInput > div > div > input:focus {
+        border: 2px solid var(--neon-green) !important;
+        box-shadow: 0 0 20px rgba(6, 255, 165, 0.3) !important;
+    }
+    
+    /* Gaming Sliders */
+    .stSlider > div > div > div > div {
+        background: var(--secondary-gradient) !important;
+    }
+    
+    .stSlider > div > div > div {
+        background: var(--card-bg) !important;
+        border: 2px solid var(--neon-blue);
+        border-radius: 10px;
+    }
+    
+    /* Gaming Metrics */
+    .stMetric > div {
+        background: var(--card-bg);
+        padding: 1.5rem;
+        border-radius: 15px;
+        border: 2px solid var(--neon-purple);
+        box-shadow: 0 0 15px rgba(131, 56, 236, 0.3);
+    }
+    
+    .stMetric > div > div {
+        color: #ffffff !important;
+        font-weight: 700;
+    }
+    
+    /* Gaming Expanders */
+    .streamlit-expanderHeader {
+        background: var(--card-bg) !important;
+        border: 2px solid var(--neon-blue) !important;
+        border-radius: 15px !important;
+        color: #ffffff !important;
+        font-weight: 700;
+    }
+    
+    .streamlit-expanderHeader:hover {
+        border: 2px solid var(--neon-green) !important;
+        box-shadow: 0 0 20px rgba(6, 255, 165, 0.3);
+    }
+    
+    /* Gaming Tables */
+    .stDataFrame {
+        background: var(--card-bg);
+        border-radius: 15px;
+        border: 2px solid var(--neon-purple);
+        overflow: hidden;
+    }
+    
+    /* Gaming Charts Background */
+    .js-plotly-plot {
+        background: var(--card-bg) !important;
+        border-radius: 15px;
+        border: 2px solid var(--neon-blue);
+        box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
+    }
+    
+    /* Mobile Gaming Responsiveness */
+    @media (max-width: 768px) {
+        .block-container {
+            margin: 10px;
+            padding: 1rem;
+        }
+        
+        .hero-header {
+            font-size: 2.5rem;
+        }
+        
+        .metric-card {
+            padding: 1.5rem;
+        }
+        
+        .metric-value {
+            font-size: 2rem;
+        }
     }
 </style>
 """, unsafe_allow_html=True)
@@ -467,20 +764,20 @@ def calculate_market_metrics(df):
 with st.sidebar:
     st.markdown("""
     <div style="text-align: center; padding: 2rem 0;">
-        <h1 style="background: linear-gradient(45deg, #667eea, #764ba2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 1.5rem; font-weight: 800;">
+        <h1 style="background: linear-gradient(45deg, #ff006e, #8338ec); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 1.8rem; font-weight: 900; text-shadow: 0 0 20px rgba(255, 0, 110, 0.5);">
             🏡 MORTGAGE QUEST ELITE
         </h1>
-        <p style="color: rgba(255,255,255,0.8); font-size: 0.9rem;">AI-Powered Real Estate Intelligence</p>
+        <p style="color: #06ffa5; font-size: 1rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; text-shadow: 0 0 10px rgba(6, 255, 165, 0.5);">AI-Powered Real Estate Intelligence</p>
     </div>
     """, unsafe_allow_html=True)
     
     # User Profile
     st.markdown(f"""
-    <div style="background: rgba(45, 55, 72, 0.1); padding: 1rem; border-radius: 15px; margin-bottom: 1rem; border: 1px solid rgba(56, 178, 172, 0.2);">
-        <div style="color: #2d3748; text-align: center;">
-            <div style="font-size: 2rem;">👤</div>
-            <div style="font-weight: 600; color: #2d3748;">Level {st.session_state.user_profile['level']} Player</div>
-            <div style="color: #718096;">{st.session_state.user_profile['points']} Points</div>
+    <div style="background: var(--card-bg); padding: 1.5rem; border-radius: 20px; margin-bottom: 1rem; border: 2px solid; border-image: linear-gradient(45deg, var(--neon-purple), var(--neon-green)) 1; box-shadow: 0 0 30px rgba(131, 56, 236, 0.3);">
+        <div style="color: #ffffff; text-align: center;">
+            <div style="font-size: 2.5rem; filter: drop-shadow(0 0 10px rgba(6, 255, 165, 0.5));">🎮</div>
+            <div style="font-weight: 700; color: var(--neon-green); text-shadow: 0 0 10px rgba(6, 255, 165, 0.3); text-transform: uppercase;">Level {st.session_state.user_profile['level']} Gamer</div>
+            <div style="color: var(--neon-blue); font-weight: 600; text-shadow: 0 0 5px rgba(0, 212, 255, 0.3);">{st.session_state.user_profile['points']} XP Points</div>
         </div>
     </div>
     """, unsafe_allow_html=True)
@@ -500,22 +797,22 @@ with st.sidebar:
     st.markdown("---")
     
     # Quick controls
-    st.markdown("### 🎮 Quick Controls")
+    st.markdown("### 🎮 Gaming Controls")
     real_time_updates = st.toggle("🔄 Real-time Data", value=True)
-    expert_mode = st.toggle("🔬 Expert Mode", value=False)
-    notifications = st.toggle("🔔 Alerts", value=True)
+    expert_mode = st.toggle("🔬 Pro Gamer Mode", value=False)
+    notifications = st.toggle("🔔 Battle Alerts", value=True)
     
     # Market health indicator
     df = generate_enterprise_data()
     metrics = calculate_market_metrics(df)
     
-    st.markdown("### 🏥 Market Health")
-    health_color = "#48bb78" if metrics['market_health'] == 'Excellent' else "#38b2ac" if metrics['market_health'] == 'Good' else "#ed8936" if metrics['market_health'] == 'Fair' else "#f56565"
+    st.markdown("### 🏥 Market Battle Status")
+    health_color = "#39ff14" if metrics['market_health'] == 'Excellent' else "#06ffa5" if metrics['market_health'] == 'Good' else "#ffbe0b" if metrics['market_health'] == 'Fair' else "#ff006e"
     
     st.markdown(f"""
-    <div style="background: {health_color}20; border: 1px solid {health_color}40; padding: 1rem; border-radius: 15px; text-align: center;">
-        <div style="color: {health_color}; font-weight: 600;">{metrics['market_health']}</div>
-        <div style="color: #718096; font-size: 0.8rem;">{metrics['affordability']:.0f}/100</div>
+    <div style="background: {health_color}30; border: 2px solid {health_color}; padding: 1.5rem; border-radius: 20px; text-align: center; box-shadow: 0 0 25px {health_color}40;">
+        <div style="color: {health_color}; font-weight: 700; font-size: 1.2rem; text-transform: uppercase; text-shadow: 0 0 10px {health_color}50;">{metrics['market_health']}</div>
+        <div style="color: #ffffff; font-size: 1rem; font-weight: 600;">{metrics['affordability']:.0f}/100 HP</div>
     </div>
     """, unsafe_allow_html=True)
     
