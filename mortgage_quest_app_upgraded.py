@@ -531,16 +531,133 @@ st.markdown("""
         text-shadow: 0 0 5px rgba(6, 255, 165, 0.3);
     }
     
-    /* Gaming Headers */
-    h1, h2, h3, h4, h5, h6 {
-        color: #ffffff;
-        font-weight: 700;
-        text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    /* Force all text to be visible */
+    * {
+        color: #ffffff !important;
     }
     
-    /* Gaming Text */
-    p, div, span {
-        color: #ffffff;
+    /* Specific text visibility fixes */
+    .stMarkdown, .stMarkdown p, .stMarkdown div, .stMarkdown span,
+    .stText, .stCaption, .stInfo, .stSuccess, .stWarning, .stError,
+    .element-container, .element-container p, .element-container div,
+    .block-container p, .block-container div, .block-container span,
+    h1, h2, h3, h4, h5, h6, p, div, span, li, ul, ol {
+        color: #ffffff !important;
+        font-weight: 500 !important;
+    }
+    
+    /* Gaming Headers with neon colors */
+    h1 {
+        color: var(--neon-pink) !important;
+        font-weight: 900 !important;
+        text-shadow: 0 0 20px rgba(255, 0, 110, 0.8) !important;
+    }
+    
+    h2 {
+        color: var(--neon-green) !important;
+        font-weight: 800 !important;
+        text-shadow: 0 0 15px rgba(6, 255, 165, 0.6) !important;
+    }
+    
+    h3 {
+        color: var(--neon-blue) !important;
+        font-weight: 700 !important;
+        text-shadow: 0 0 10px rgba(0, 212, 255, 0.5) !important;
+    }
+    
+    h4, h5, h6 {
+        color: var(--neon-yellow) !important;
+        font-weight: 600 !important;
+        text-shadow: 0 0 8px rgba(255, 190, 11, 0.4) !important;
+    }
+    
+    /* Content area text visibility */
+    .main .block-container * {
+        color: #ffffff !important;
+    }
+    
+    /* List items visibility */
+    li {
+        color: var(--neon-green) !important;
+        font-weight: 600 !important;
+    }
+    
+    /* Strong text visibility */
+    strong, b {
+        color: var(--neon-yellow) !important;
+        font-weight: 800 !important;
+        text-shadow: 0 0 5px rgba(255, 190, 11, 0.4) !important;
+    }
+    
+    /* Link visibility */
+    a {
+        color: var(--neon-blue) !important;
+        font-weight: 600 !important;
+        text-decoration: none !important;
+        text-shadow: 0 0 5px rgba(0, 212, 255, 0.4) !important;
+    }
+    
+    a:hover {
+        color: var(--neon-green) !important;
+        text-shadow: 0 0 10px rgba(6, 255, 165, 0.6) !important;
+    }
+    
+    /* Streamlit specific visibility fixes */
+    .stMarkdown h1, .stMarkdown h2, .stMarkdown h3 {
+        color: var(--neon-pink) !important;
+        text-shadow: 0 0 20px rgba(255, 0, 110, 0.6) !important;
+    }
+    
+    .stMarkdown p {
+        color: #ffffff !important;
+        font-weight: 500 !important;
+        line-height: 1.6 !important;
+    }
+    
+    .stMarkdown ul li, .stMarkdown ol li {
+        color: var(--neon-green) !important;
+        font-weight: 600 !important;
+        margin: 0.5rem 0 !important;
+    }
+    
+    .stMarkdown strong {
+        color: var(--neon-yellow) !important;
+        font-weight: 800 !important;
+        text-shadow: 0 0 5px rgba(255, 190, 11, 0.4) !important;
+    }
+    
+    /* Info/Warning/Success/Error messages */
+    .stAlert {
+        background: var(--card-bg) !important;
+        border: 2px solid var(--neon-blue) !important;
+        border-radius: 15px !important;
+        color: #ffffff !important;
+    }
+    
+    .stSuccess {
+        border-color: var(--neon-green) !important;
+        background: rgba(6, 255, 165, 0.1) !important;
+    }
+    
+    .stWarning {
+        border-color: var(--neon-yellow) !important;
+        background: rgba(255, 190, 11, 0.1) !important;
+    }
+    
+    .stError {
+        border-color: var(--neon-pink) !important;
+        background: rgba(255, 0, 110, 0.1) !important;
+    }
+    
+    .stInfo {
+        border-color: var(--neon-blue) !important;
+        background: rgba(0, 212, 255, 0.1) !important;
+    }
+    
+    /* Spinner text */
+    .stSpinner > div {
+        color: var(--neon-green) !important;
+        font-weight: 600 !important;
     }
     
     /* Gaming Input Fields */
@@ -558,6 +675,16 @@ st.markdown("""
     .stNumberInput > div > div > input:focus {
         border: 2px solid var(--neon-green) !important;
         box-shadow: 0 0 20px rgba(6, 255, 165, 0.3) !important;
+    }
+    
+    /* Gaming input labels */
+    .stTextInput > label, .stNumberInput > label, .stSelectbox > label,
+    .stSlider > label, .stDateInput > label, .stTimeInput > label {
+        color: var(--neon-blue) !important;
+        font-weight: 700 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.05em !important;
+        text-shadow: 0 0 5px rgba(0, 212, 255, 0.3) !important;
     }
     
     /* Gaming Sliders */
@@ -583,6 +710,23 @@ st.markdown("""
     .stMetric > div > div {
         color: #ffffff !important;
         font-weight: 700;
+    }
+    
+    .stMetric label {
+        color: var(--neon-blue) !important;
+        font-weight: 700 !important;
+        text-transform: uppercase !important;
+    }
+    
+    .stMetric [data-testid="metric-value"] {
+        color: var(--neon-green) !important;
+        font-weight: 900 !important;
+        font-size: 2rem !important;
+    }
+    
+    .stMetric [data-testid="metric-delta"] {
+        color: var(--neon-yellow) !important;
+        font-weight: 600 !important;
     }
     
     /* Gaming Expanders */
