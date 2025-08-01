@@ -1,65 +1,89 @@
-
-import streamlit as st
 import pandas as pd
+import streamlit as st
 import matplotlib.pyplot as plt
 
 # Page setup
-st.set_page_config(page_title="Mortgage Quest — Interactive Game Mode Simulator", layout="wide")
+st.set_page_config(page_title="Mortgage Quest – Interactive Game Mode Simulator", layout="wide")
 
-# Sidebar navigation
-menu = st.sidebar.radio("Navigate", ["🏠 Home", "📊 Data Trends", "💖 Simulations", "💡 Buy or Wait", "🔎 About"])
+# Load data
+@st.cache_data
+def load_data():
+    return pd.read_csv("us_mortgage_data_fixed.csv")
+
+df = load_data()
+
+# Sidebar
+st.sidebar.title("Navigate")
+selection = st.sidebar.radio("Go to", ["🏠 Home", "📊 Data Trends", "💖 Simulations", "💡 Buy or Wait", "🔍 About"])
 
 # Home Page
-if menu == "🏠 Home":
+if selection == "🏠 Home":
     st.title("🏡 Mortgage Quest — Interactive Game Mode Simulator")
     st.markdown("A U.S. housing market simulator built for the NYU Fintech Capstone Project.")
-    st.header("Welcome to Mortgage Quest")
-    st.write("Explore macroeconomic stress, mortgage delinquency, and affordability dynamics interactively.")
-    st.image("https://img.icons8.com/color/96/000000/home--v1.png", width=100)
+    st.subheader("Welcome to Mortgage Quest")
+    st.markdown("Explore macroeconomic stress, mortgage delinquency, and affordability dynamics interactively.")
+    st.image("https://img.icons8.com/?size=512&id=81297&format=png", width=80)
 
 # Data Trends Page
-elif menu == "📊 Data Trends":
-    st.header("Delinquency Trends")
-    try:
-        df = pd.read_csv("us_mortgage_data_fixed.csv")
-        st.dataframe(df.head())
-        df['Date'] = pd.to_datetime(df['Date'])
-        df.set_index('Date', inplace=True)
-        st.line_chart(df)
-    except Exception as e:
-        st.error(f"Error loading data: {e}")
+elif selection == "📊 Data Trends":
+    st.title("Delinquency Trends")
+
+    if "Date" in df.columns and "Delinquency_90plus" in df.columns and "Fed_Rate" in df.columns:
+        st.dataframe(df[["Date", "Fed_Rate", "Delinquency_90plus"]].head())
+
+        # Line Chart
+        fig, ax = plt.subplots()
+        ax.plot(pd.to_datetime(df["Date"]), df["Delinquency_90plus"], label="Delinquency_90plus")
+        ax.plot(pd.to_datetime(df["Date"]), df["Fed_Rate"], label="Fed_Rate")
+        ax.set_title("Delinquency vs Fed Rate Over Time")
+        ax.set_ylabel("Rate (%)")
+        ax.legend()
+        st.pyplot(fig)
+
+        # Explore Low Delinquency Quarters
+        st.subheader("📉 Explore Low Delinquency Quarters (Below 2%)")
+        low_delinquency_df = df[df["Delinquency_90plus"] < 2]
+
+        if not low_delinquency_df.empty:
+            selected_quarter = st.selectbox("Select a quarter", low_delinquency_df["Date"].tolist())
+            st.write("**Details for selected quarter:**")
+            st.dataframe(low_delinquency_df[low_delinquency_df["Date"] == selected_quarter])
+
+            with st.expander("See all quarters with Delinquency < 2%"):
+                st.dataframe(low_delinquency_df)
+        else:
+            st.warning("No quarters found with Delinquency_90plus less than 2%.")
+    else:
+        st.error("Error loading data: Required columns not found.")
 
 # Simulations Page
-elif menu == "💖 Simulations":
-    st.header("Stress Test Simulations")
-    interest_rate = st.slider("Interest Rate (%)", 0.0, 10.0, 3.5)
-    unemployment_rate = st.slider("Unemployment Rate (%)", 0.0, 20.0, 5.0)
-    home_price_index = st.slider("Home Price Index", 100, 500, 250)
-    st.write("Simulation Results:")
-    st.write(f"With interest rate at {interest_rate}%, unemployment at {unemployment_rate}%, and home price index at {home_price_index}.")
+elif selection == "💖 Simulations":
+    st.title("Simulate Mortgage Scenarios")
+    st.markdown("Coming soon: Choose your role, apply macroeconomic shocks, and see impacts on mortgage outcomes.")
 
-# Buy or Wait Page
-elif menu == "💡 Buy or Wait":
-    st.header("📈 Buy or Wait?")
-    st.markdown("This section evaluates if it’s a good time to buy a house based on your inputs.")
-    affordability_index = st.slider("Affordability Index", 0, 100, 50)
-    risk_tolerance = st.selectbox("Risk Tolerance", ["Low", "Medium", "High"])
-    if affordability_index > 70 and risk_tolerance != "Low":
-        st.success("✅ Buy Recommendation: Market conditions are favorable.")
+# Buy or Wait Logic
+elif selection == "💡 Buy or Wait":
+    st.title("Buy or Wait Signal")
+    latest = df.tail(1)
+    fed = latest["Fed_Rate"].values[0]
+    delq = latest["Delinquency_90plus"].values[0]
+
+    if fed < 3 and delq < 2:
+        signal = "BUY 🟢"
+        comment = "Favorable macro conditions and low mortgage stress suggest it's a good time to buy."
     else:
-        st.warning("⚠️ Wait Recommendation: It might be better to wait.")
+        signal = "WAIT 🔴"
+        comment = "High rates or stress detected. Better to wait and monitor trends."
+
+    st.metric("Signal", signal)
+    st.markdown(f"**Reasoning:** {comment}")
 
 # About Page
-elif menu == "🔎 About":
-    st.header("About the Project")
+elif selection == "🔍 About":
+    st.title("About")
     st.markdown("""
-    **Mortgage Quest** is a multi-modal fintech gaming platform that simulates U.S. homeownership decisions using real economic data.
-
-    Built as part of the NYU Fintech Capstone, this project models real-time market indicators to suggest home-buying strategies.
-
-    **Developed by BEFMNS**
+    **Mortgage Quest** is an NYU Stern Fintech capstone simulation project built to model U.S. mortgage market behavior
+    using delinquency, interest rate, and affordability data.
+    
+    Developed by **BEFMNS Team**.
     """)
-
-# Footer
-st.markdown("---")
-st.markdown("🔧 Built using Streamlit | 📊 Data from FRED & NY Fed | 💼 For educational purposes only")
