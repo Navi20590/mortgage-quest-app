@@ -1187,4 +1187,10 @@ def calculate_advanced_metrics(df):
         'unemployment': latest['Unemployment_Rate'],
         'unemployment_change': latest['Unemployment_Rate'] - prev_month['Unemployment_Rate'],
         'hpi': latest['Home_Price_Index'],
-        'hpi_change': ((latest['Home_Price_Index'] - prev_year['Home_Price_Index'])
+        'hpi_change': ((latest['Home_Price_Index'] - prev_year['Home_Price_Index']) / prev_year['Home_Price_Index']) * 100,
+        'affordability': latest['Affordability_Index'],
+        'market_health': 'Elite' if latest['Affordability_Index'] > 70 else 'Advanced' if latest['Affordability_Index'] > 50 else 'Moderate' if latest['Affordability_Index'] > 30 else 'Challenging',
+        'volatility': df['Mortgage_Rate'].tail(30).std()
+    }
+    
+    return metrics
