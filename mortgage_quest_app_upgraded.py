@@ -17,7 +17,7 @@ tabs = st.tabs(["🏠 Home", "📊 Data Trends", "🧪 Simulations", "💡 Buy o
 with tabs[0]:
     st.subheader("Welcome to Mortgage Quest")
     st.markdown("Explore macroeconomic stress, mortgage delinquency, and affordability dynamics interactively.")
-    st.image("https://cdn.pixabay.com/photo/2017/01/16/19/40/house-1989912_1280.png", use_column_width=True)
+   st.image("https://cdn.pixabay.com/photo/2017/01/16/19/40/house-1989912_1280.png", use_container_width=True)
 
 # ----- DATA TRENDS -----
 with tabs[1]:
