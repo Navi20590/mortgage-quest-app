@@ -1,81 +1,72 @@
 import streamlit as st
 import pandas as pd
-import numpy as np
+import matplotlib.pyplot as plt
 import plotly.express as px
+import numpy as np
 
-# Set Streamlit page config
-st.set_page_config(page_title="Mortgage Quest", layout="wide")
+# Set wide layout
+st.set_page_config(layout="wide")
 
-# Title
-st.title("🏡 Mortgage Quest — Interactive Game Mode Simulator")
-st.markdown("A U.S. housing market simulator built for the NYU Fintech Capstone Project.")
+# Navigation
+selected_tab = st.sidebar.radio(
+    "Navigate",
+    ["Home", "📊 Data Trends", "🧪 Simulations", "💡 Buy or Wait", "ℹ️ About"]
+)
 
-# Tabs for navigation
-tabs = st.tabs(["🏠 Home", "📊 Data Trends", "🧪 Simulations", "💡 Buy or Wait", "ℹ️ About"])
-
-# ----- HOME -----
-with tabs[0]:
-    st.subheader("Welcome to Mortgage Quest")
+# Home tab
+if selected_tab == "Home":
+    st.title("🏠 Mortgage Quest — Interactive Game Mode Simulator")
     st.markdown("Explore macroeconomic stress, mortgage delinquency, and affordability dynamics interactively.")
-   st.image("https://cdn.pixabay.com/photo/2017/01/16/19/40/house-1989912_1280.png", use_container_width=True)
+    st.image(
+        "https://cdn.pixabay.com/photo/2017/01/16/19/40/house-1989912_1280.png",
+        use_container_width=True
+    )
 
-# ----- DATA TRENDS -----
-with tabs[1]:
-    st.subheader("U.S. Mortgage Delinquency & Macro Trends")
-    uploaded_file = "us_mortgage_data_fixed.csv"
-
-    try:
-        df = pd.read_csv(uploaded_file)
-        df['Date'] = pd.to_datetime(df['Date'])
-
-        selected_column = st.selectbox("Choose a metric to visualize", df.columns[1:])
-        fig = px.line(df, x='Date', y=selected_column, title=f"{selected_column} Over Time")
-        st.plotly_chart(fig, use_container_width=True)
-    except Exception as e:
-        st.error(f"Error loading dataset: {e}")
-
-# ----- SIMULATIONS -----
-with tabs[2]:
-    st.subheader("Macroeconomic Shock Simulator")
-
-    rate_hike = st.slider("📈 Fed Rate (%)", 0.0, 10.0, 5.0)
-    unemployment = st.slider("💼 Unemployment Rate (%)", 0.0, 20.0, 6.5)
-    rent_index = st.slider("🏠 Rent Index (Base 100)", 80, 200, 120)
-
-    risk_score = (rate_hike * 0.4) + (unemployment * 0.4) + ((rent_index - 100) * 0.2)
-    st.metric("📉 Simulated Risk Score", round(risk_score, 2))
-
-    if risk_score >= 15:
-        st.error("⚠️ High Risk: Mortgage instability likely.")
-    elif risk_score >= 8:
-        st.warning("⚠️ Moderate Risk: Monitor closely.")
-    else:
-        st.success("✅ Low Risk: Market appears stable.")
-
-# ----- BUY OR WAIT -----
-with tabs[3]:
-    st.subheader("📌 Should You Buy or Wait?")
-
-    income = st.number_input("Your Monthly Income (₹)", value=75000)
-    emi = st.number_input("Expected Monthly EMI (₹)", value=25000)
-    inflation = st.slider("Expected Inflation (%)", 0.0, 10.0, 4.5)
-
-    affordability = (income - emi) / income * 100 - inflation
-    st.metric("📊 Affordability Index", round(affordability, 2))
-
-    if affordability > 25:
-        st.success("👍 Buy — Market looks affordable for you.")
-    else:
-        st.warning("⏳ Wait — Reassess affordability or lower EMI burden.")
-
-# ----- ABOUT -----
-with tabs[4]:
-    st.subheader("About the Project")
-    st.markdown("""
-    - **Mortgage Quest** is a fintech simulation tool designed to help users understand how macroeconomic factors like interest rates, rent, and employment affect mortgage performance and homebuying decisions.
-    - It allows interactive visualizations and real-time scenario analysis using real U.S. housing & delinquency datasets (2020–2025).
+# Data Trends tab
+elif selected_tab == "📊 Data Trends":
+    st.header("📈 U.S. Mortgage Delinquency Trends (2020–2025)")
     
-    ---
-    📌 Developed by **BEFMNS**  
-    🏫 NYU Stern MS Fintech | Capstone Project 2025
+    df = pd.read_csv("us_mortgage_data_fixed.csv")
+    df['Date'] = pd.to_datetime(df['Date'])
+
+    fig = px.line(df, x="Date", y=["Mortgage", "Auto", "Student Loan", "Credit Card"],
+                  labels={"value": "Delinquency Rate", "variable": "Loan Type"},
+                  title="Delinquency Rates by Loan Type")
+    st.plotly_chart(fig, use_container_width=True)
+
+# Simulations tab
+elif selected_tab == "🧪 Simulations":
+    st.header("🧪 Macro Simulation Engine")
+
+    fed_rate = st.slider("📉 Fed Interest Rate (%)", 0.0, 10.0, 3.5, step=0.25)
+    income = st.slider("👩‍💼 Median Household Income ($)", 20000, 120000, 60000, step=5000)
+    rent = st.slider("🏘️ Average Monthly Rent ($)", 500, 4000, 1800, step=100)
+
+    stress_score = (fed_rate * 2) + (4000 - rent) / 200 + (100000 - income) / 10000
+    st.metric("Simulated Stress Score", round(stress_score, 2))
+
+# Buy or Wait tab
+elif selected_tab == "💡 Buy or Wait":
+    st.header("💡 Affordability Signal Engine")
+
+    income_input = st.number_input("👩‍💼 Monthly Income ($)", min_value=1000, value=5000, step=100)
+    rent_input = st.number_input("🏘️ Monthly Housing Cost ($)", min_value=500, value=1800, step=50)
+
+    ratio = rent_input / income_input
+
+    if ratio < 0.3:
+        st.success("✅ It's a good time to BUY!")
+    elif 0.3 <= ratio <= 0.4:
+        st.info("🤔 Consider WAITING or evaluating further.")
+    else:
+        st.warning("🚫 Better to WAIT. Affordability is stressed.")
+
+# About tab
+elif selected_tab == "ℹ️ About":
+    st.header("ℹ️ About This App")
+    st.markdown("""
+    **Mortgage Quest** is a U.S. housing market simulator built for the NYU Fintech Capstone Project.  
+    It lets users explore delinquency rates, simulate macro stress scenarios, and test housing affordability using real datasets.  
+    \nBuilt with Streamlit using Python, Plotly, and open-source mortgage datasets (2020–2025).
+    \n\n👨‍💻 Developed by **BEFMNS**
     """)
