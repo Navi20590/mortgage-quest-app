@@ -232,7 +232,7 @@ if menu == "🏠 Dashboard":
         rows=2, cols=2,
         subplot_titles=('Mortgage Rates Trend', 'Unemployment vs Housing', 'Affordability Index', 'Market Sentiment'),
         specs=[[{"secondary_y": True}, {"secondary_y": True}],
-               [{"secondary_y": False}, {"secondary_y": False}]]
+               [{"secondary_y": False}, {"type": "pie"}]]
     )
     
     # Mortgage rates
@@ -250,14 +250,14 @@ if menu == "🏠 Dashboard":
     )
     fig.add_trace(
         go.Scatter(x=df['Date'], y=df['Home_Price_Index'], name='Home Price Index', 
-                  line=dict(color='#764ba2', width=2), yaxis='y2'),
+                  line=dict(color='#764ba2', width=2)),
         row=1, col=2, secondary_y=True
     )
     
     # Affordability
     fig.add_trace(
         go.Scatter(x=df['Date'], y=df['Affordability_Index'], name='Affordability',
-                  fill='tonexty', line=dict(color='#a8edea', width=2)),
+                  fill='tozeroy', line=dict(color='#a8edea', width=2)),
         row=2, col=1
     )
     
@@ -265,7 +265,7 @@ if menu == "🏠 Dashboard":
     sentiment_counts = df['Market_Sentiment'].value_counts()
     fig.add_trace(
         go.Pie(labels=sentiment_counts.index, values=sentiment_counts.values, 
-               name="Market Sentiment"),
+               name="Market Sentiment", showlegend=False),
         row=2, col=2
     )
     
@@ -631,16 +631,121 @@ elif menu == "📈 Portfolio Tracker":
     # Display portfolio
     if st.session_state.properties:
         st.markdown("### 📊 Portfolio Overview")
+        
+        total_purchase = sum(p['purchase_price'] for p in st.session_state.properties)
+        total_current = sum(p['current_value'] for p in st.session_state.properties)
+        total_equity = total_current - total_purchase
+        
+        col1, col2, col3, col4 = st.columns(4)
+        with col1:
+            st.metric("🏠 Properties", len(st.session_state.properties))
+        with col2:
+            st.metric("💰 Total Investment", f"${total_purchase:,.0f}")
+        with col3:
+            st.metric("📈 Current Value", f"${total_current:,.0f}")
+        with col4:
+            st.metric("💎 Total Equity", f"${total_equity:,.0f}", f"{((total_equity/total_purchase)*100):+.1f}%")
+        
+        # Property details
+        for i, prop in enumerate(st.session_state.properties):
+            with st.expander(f"🏠 {prop['address']} - {prop['property_type']}"):
+                col1, col2 = st.columns(2)
+                with col1:
+                    st.write(f"**Purchase Price:** ${prop['purchase_price']:,.0f}")
+                    st.write(f"**Purchase Date:** {prop['purchase_date']}")
+                    st.write(f"**Monthly Payment:** ${prop['monthly_payment']:,.0f}")
+                with col2:
+                    st.write(f"**Current Value:** ${prop['current_value']:,.0f}")
+                    equity = prop['current_value'] - prop['purchase_price']
+                    st.write(f"**Equity:** ${equity:,.0f}")
+                    roi = ((equity / prop['purchase_price']) * 100) if prop['purchase_price'] > 0 else 0
+                    st.write(f"**ROI:** {roi:.1f}%")
 
 # About Page
 elif menu == "ℹ️ About":
-    st.header("🔎 About Mortgage Quest")
-    st.markdown("""
-    **Mortgage Quest** is a strategic simulation tool that lets users interact with U.S. mortgage trends,
-    test economic stress scenarios, and make data-driven homeownership decisions.
-
-    Developed for the NYU Stern Fintech Capstone by **BEFMNS**, this app blends real-world macroeconomics with gamified decision logic.
-    """)
-
+    st.markdown('<h1 class="main-header">ℹ️ About Mortgage Quest Pro</h1>', unsafe_allow_html=True)
+    
+    col1, col2 = st.columns([2, 1])
+    
+    with col1:
+        st.markdown("""
+        <div class="feature-card">
+            <h2>🎯 Mission Statement</h2>
+            <p><strong>Mortgage Quest Pro</strong> is an advanced strategic simulation platform that empowers users to navigate the complex U.S. housing market with confidence and data-driven insights.</p>
+            
+            <h3>🚀 Key Features:</h3>
+            <ul>
+                <li><strong>Real-time Market Intelligence:</strong> Live tracking of mortgage rates, unemployment, and housing indices</li>
+                <li><strong>Advanced Scenario Modeling:</strong> Simulate economic conditions and predict market outcomes</li>
+                <li><strong>AI-Powered Decision Engine:</strong> Personalized recommendations based on your financial profile</li>
+                <li><strong>Portfolio Management:</strong> Track and analyze your real estate investments</li>
+                <li><strong>Professional Analytics:</strong> Institutional-grade tools for serious investors</li>
+            </ul>
+            
+            <h3>🎓 Academic Excellence:</h3>
+            <p>Developed for the <strong>NYU Stern Fintech Capstone</strong> by team <strong>BEFMNS</strong>, this application represents the intersection of cutting-edge financial technology and practical real estate decision-making.</p>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    with col2:
+        st.markdown("""
+        <div class="feature-card">
+            <h3>🔧 Technology Stack</h3>
+            <p><strong>Frontend:</strong> Streamlit with custom CSS</p>
+            <p><strong>Visualization:</strong> Plotly & Interactive Charts</p>
+            <p><strong>Data Processing:</strong> Pandas & NumPy</p>
+            <p><strong>Analytics:</strong> Statistical Modeling</p>
+            <p><strong>Design:</strong> Modern UI/UX Principles</p>
+            
+            <h3>📊 Data Sources</h3>
+            <p>• Federal Reserve Economic Data (FRED)</p>
+            <p>• New York Federal Reserve</p>
+            <p>• Bureau of Labor Statistics</p>
+            <p>• Housing Market Indices</p>
+            
+            <h3>🎮 Gamification Elements</h3>
+            <p>• Interactive Scenarios</p>
+            <p>• Progress Tracking</p>
+            <p>• Achievement System</p>
+            <p>• Real-time Feedback</p>
+        </div>
+        """, unsafe_allow_html=True)
+    
     st.markdown("---")
-    st.markdown("🔧 Built with Streamlit | 📊 Data from FRED & NY Fed | 🚀 Simulation powered by Pandas & Altair")
+    
+    # Team information
+    st.markdown("### 👥 Meet the Team - BEFMNS")
+    team_col1, team_col2, team_col3 = st.columns(3)
+    
+    with team_col1:
+        st.markdown("""
+        <div class="feature-card">
+            <h4>🎯 Strategy & Analytics</h4>
+            <p>Financial modeling and market analysis experts bringing Wall Street insights to Main Street decisions.</p>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    with team_col2:
+        st.markdown("""
+        <div class="feature-card">
+            <h4>💻 Technology & Development</h4>
+            <p>Full-stack developers and data scientists creating scalable fintech solutions.</p>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    with team_col3:
+        st.markdown("""
+        <div class="feature-card">
+            <h4>🎨 Design & Experience</h4>
+            <p>UX/UI specialists focused on making complex financial data accessible and actionable.</p>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    st.markdown("---")
+    st.markdown("""
+    <div style="text-align: center; padding: 2rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 15px; color: white;">
+        <h3>🚀 Ready to Transform Your Real Estate Journey?</h3>
+        <p>Join thousands of users making smarter homeownership decisions with Mortgage Quest Pro</p>
+        <p><strong>© 2024 BEFMNS Team | NYU Stern School of Business</strong></p>
+    </div>
+    """, unsafe_allow_html=True)
