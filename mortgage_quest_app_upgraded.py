@@ -43,7 +43,7 @@ LIFE_STAGE_MODES = {
         'character': '🎯 First Timer Fred',
         'age_range': '22-28',
         'emoji': '🎯',
-        'color': '#059669',
+        'color': '#10B981',
         'bg_color': '#ECFDF5',
         'description': 'Build credit, learn basics, save for first home',
         'features': ['Credit Score Building', 'Down Payment Savings', 'Market Education'],
@@ -60,7 +60,7 @@ LIFE_STAGE_MODES = {
         'character': '👨‍👩‍👧‍👦 Family Planner',
         'age_range': '28-35',
         'emoji': '👨‍👩‍👧‍👦',
-        'color': '#1E40AF',
+        'color': '#3B82F6',
         'bg_color': '#EFF6FF',
         'description': 'Family home planning and school district research',
         'features': ['School District Analysis', 'Family Budget Planning', 'Joint Savings Goals'],
@@ -77,8 +77,8 @@ LIFE_STAGE_MODES = {
         'character': '🏠 Equity Optimizer',
         'age_range': '35-45',
         'emoji': '🏠',
-        'color': '#D97706',
-        'bg_color': '#FEF3E2',
+        'color': '#F59E0B',
+        'bg_color': '#FFFBEB',
         'description': 'Maximize equity through strategic improvements',
         'features': ['Market Timing', 'Equity Optimization', 'Advanced Strategies'],
         'current_quests': [
@@ -94,7 +94,7 @@ LIFE_STAGE_MODES = {
         'character': '🏖️ Freedom Seeker',
         'age_range': '55+',
         'emoji': '🏖️',
-        'color': '#7C3AED',
+        'color': '#8B5CF6',
         'bg_color': '#F5F3FF',
         'description': 'Optimize retirement through strategic downsizing',
         'features': ['Geographic Arbitrage', 'Retirement Planning', 'Healthcare Integration'],
@@ -111,7 +111,7 @@ LIFE_STAGE_MODES = {
         'character': '🏛️ Property Mogul',
         'age_range': 'Any Age',
         'emoji': '🏛️',
-        'color': '#DC2626',
+        'color': '#EF4444',
         'bg_color': '#FEF2F2',
         'description': 'Build rental empire with advanced strategies',
         'features': ['BRRRR Method', 'Cash Flow Analysis', 'Portfolio Building'],
@@ -131,25 +131,15 @@ st.markdown("""
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Exo+2:wght@300;400;500;600;700&display=swap');
     
     :root {
-        --primary-blue: #1E40AF;
-        --electric-blue: #3B82F6;
-        --cyber-purple: #7C3AED;
-        --neon-green: #059669;
-        --emerald-green: #10B981;
-        --sunset-orange: #EA580C;
-        --golden-yellow: #D97706;
-        --coral-pink: #DC2626;
-        --hot-pink: #EC4899;
-        --deep-space: #0F172A;
-        --slate-gray: #334155;
-        --glass-white: rgba(255, 255, 255, 0.95);
-        --glass-blue: rgba(59, 130, 246, 0.1);
-        --glass-purple: rgba(124, 58, 237, 0.1);
-        --glass-green: rgba(16, 185, 129, 0.1);
-        --hero-gradient: linear-gradient(135deg, #1E40AF 0%, #7C3AED 30%, #EC4899 60%, #DC2626 100%);
-        --card-gradient: linear-gradient(145deg, rgba(255,255,255,0.98) 0%, rgba(248,250,252,0.95) 100%);
-        --neon-glow: 0 0 20px rgba(59, 130, 246, 0.4), 0 0 40px rgba(124, 58, 237, 0.2);
-        --shadow-premium: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.05);
+        --primary-blue: #3B82F6;
+        --neon-green: #10B981;
+        --cosmic-purple: #8B5CF6;
+        --golden-yellow: #F59E0B;
+        --coral-pink: #EF4444;
+        --deep-space: #1F2937;
+        --glass-white: rgba(248, 249, 250, 0.95);
+        --hero-gradient: linear-gradient(135deg, var(--primary-blue) 0%, var(--cosmic-purple) 100%);
+        --card-gradient: linear-gradient(145deg, var(--glass-white) 0%, rgba(255,255,255,0.9) 100%);
     }
     
     * {
@@ -158,61 +148,24 @@ st.markdown("""
     }
     
     .main {
-        background: linear-gradient(135deg, 
-            #F8FAFC 0%, 
-            #EEF2FF 15%, 
-            #F0F9FF 30%, 
-            #ECFDF5 45%, 
-            #FEF3E2 60%, 
-            #FDF2F8 75%, 
-            #F5F3FF 90%, 
-            #F1F5F9 100%);
+        background: linear-gradient(135deg, #E0F2FE 0%, #F0F9FF 25%, #EFF6FF 50%, #F5F3FF 75%, #FEF7F0 100%);
         background-attachment: fixed;
         min-height: 100vh;
-        position: relative;
-    }
-    
-    .main::before {
-        content: '';
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: 
-            radial-gradient(circle at 20% 80%, rgba(30, 64, 175, 0.05) 0%, transparent 50%),
-            radial-gradient(circle at 80% 20%, rgba(124, 58, 237, 0.05) 0%, transparent 50%),
-            radial-gradient(circle at 40% 40%, rgba(16, 185, 129, 0.03) 0%, transparent 50%);
-        pointer-events: none;
-        z-index: -1;
     }
     
     .block-container {
         background: var(--card-gradient);
-        border-radius: 35px;
-        padding: 2.5rem;
-        margin: 25px;
-        box-shadow: var(--shadow-premium);
-        border: 2px solid rgba(255, 255, 255, 0.8);
-        backdrop-filter: blur(20px);
-        position: relative;
-        overflow: hidden;
-    }
-    
-    .block-container::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 4px;
-        background: linear-gradient(90deg, #1E40AF 0%, #7C3AED 25%, #EC4899 50%, #DC2626 75%, #059669 100%);
-        border-radius: 35px 35px 0 0;
+        border-radius: 30px;
+        padding: 2rem;
+        margin: 20px;
+        box-shadow: 0 25px 60px rgba(59, 130, 246, 0.15);
+        border: 3px solid rgba(255, 255, 255, 0.3);
+        backdrop-filter: blur(10px);
     }
     
     .hero-header {
         text-align: center;
-        background: linear-gradient(135deg, #1E40AF 0%, #7C3AED 25%, #EC4899 50%, #DC2626 75%, #059669 100%);
+        background: linear-gradient(135deg, #3B82F6 0%, #8B5CF6 50%, #EF4444 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         font-family: 'Orbitron', monospace !important;
@@ -220,34 +173,18 @@ st.markdown("""
         font-weight: 900 !important;
         margin: 1.5rem 0;
         letter-spacing: 0.1em;
-        filter: drop-shadow(0 4px 8px rgba(30, 64, 175, 0.3));
-        position: relative;
-    }
-    
-    .hero-header::after {
-        content: '';
-        position: absolute;
-        bottom: -10px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 200px;
-        height: 4px;
-        background: linear-gradient(90deg, transparent 0%, #7C3AED 50%, transparent 100%);
-        border-radius: 2px;
+        text-shadow: 0 0 30px rgba(59, 130, 246, 0.5);
     }
     
     .hero-subtitle {
         text-align: center;
-        background: linear-gradient(135deg, #1E40AF 0%, #7C3AED 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+        color: var(--cosmic-purple) !important;
         font-size: 1.8rem !important;
         font-weight: 700 !important;
         margin-bottom: 3rem;
         letter-spacing: 0.3em;
         text-transform: uppercase;
         font-family: 'Orbitron', monospace !important;
-        filter: drop-shadow(0 2px 4px rgba(124, 58, 237, 0.2));
     }
     
     .mode-card {
@@ -292,61 +229,36 @@ st.markdown("""
     }
     
     .metric-card-3d {
-        background: linear-gradient(145deg, rgba(255,255,255,0.98) 0%, rgba(248,250,252,0.95) 100%);
-        border-radius: 25px;
-        padding: 2.5rem;
+        background: var(--card-gradient);
+        border-radius: 20px;
+        padding: 2rem;
         text-align: center;
-        box-shadow: 
-            0 20px 40px rgba(15, 23, 42, 0.08),
-            0 8px 16px rgba(15, 23, 42, 0.04),
-            inset 0 1px 0 rgba(255, 255, 255, 0.8);
+        box-shadow: 0 20px 40px rgba(59, 130, 246, 0.15);
         margin: 1rem 0;
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        border: 1.5px solid rgba(255, 255, 255, 0.6);
+        transition: all 0.3s ease;
+        border: 2px solid rgba(255, 255, 255, 0.4);
         position: relative;
         overflow: hidden;
     }
     
-    .metric-card-3d::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 3px;
-        background: linear-gradient(90deg, #1E40AF 0%, #7C3AED 50%, #EC4899 100%);
-        opacity: 0;
-        transition: opacity 0.3s ease;
-    }
-    
     .metric-card-3d:hover {
-        transform: translateY(-12px) scale(1.02);
-        box-shadow: 
-            0 35px 70px rgba(15, 23, 42, 0.15),
-            0 15px 30px rgba(15, 23, 42, 0.08),
-            inset 0 1px 0 rgba(255, 255, 255, 0.9);
-    }
-    
-    .metric-card-3d:hover::before {
-        opacity: 1;
+        transform: translateY(-10px) scale(1.05);
+        box-shadow: 0 30px 60px rgba(59, 130, 246, 0.25);
     }
     
     .metric-value-3d {
         font-size: 3.5rem !important;
         font-weight: 900 !important;
-        background: linear-gradient(135deg, #1E40AF 0%, #7C3AED 50%, #EC4899 100%);
+        background: var(--hero-gradient);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         margin: 1rem 0;
         font-family: 'Orbitron', monospace !important;
-        filter: drop-shadow(0 2px 4px rgba(30, 64, 175, 0.3));
-        text-shadow: none;
+        text-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
     }
     
     .metric-label-3d {
-        background: linear-gradient(135deg, #334155 0%, #1E40AF 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+        color: var(--cosmic-purple) !important;
         font-weight: 700 !important;
         font-size: 1.2rem !important;
         text-transform: uppercase;
@@ -355,46 +267,27 @@ st.markdown("""
     }
     
     .progress-bar-quest {
-        height: 30px;
-        border-radius: 20px;
-        background: linear-gradient(135deg, rgba(248, 250, 252, 0.8) 0%, rgba(241, 245, 249, 0.9) 100%);
+        height: 25px;
+        border-radius: 15px;
+        background: rgba(248, 249, 250, 0.3);
         overflow: hidden;
         position: relative;
         margin: 1rem 0;
-        border: 2px solid rgba(30, 64, 175, 0.2);
-        box-shadow: inset 0 2px 4px rgba(15, 23, 42, 0.06);
+        border: 2px solid rgba(59, 130, 246, 0.3);
     }
     
     .progress-fill-quest {
         height: 100%;
-        background: linear-gradient(135deg, #059669 0%, #10B981 30%, #1E40AF 70%, #7C3AED 100%);
-        border-radius: 18px;
-        transition: width 2s cubic-bezier(0.4, 0, 0.2, 1);
+        background: linear-gradient(135deg, var(--neon-green) 0%, var(--primary-blue) 100%);
+        border-radius: 12px;
+        transition: width 1.5s ease;
         position: relative;
         overflow: hidden;
-        box-shadow: 
-            0 0 20px rgba(16, 185, 129, 0.4),
-            inset 0 1px 2px rgba(255, 255, 255, 0.3);
-    }
-    
-    .progress-fill-quest::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.3) 50%, transparent 100%);
-        animation: shimmer 2s infinite;
-    }
-    
-    @keyframes shimmer {
-        0% { transform: translateX(-100%); }
-        100% { transform: translateX(100%); }
+        box-shadow: 0 0 15px rgba(16, 185, 129, 0.5);
     }
     
     .stButton > button {
-        background: linear-gradient(135deg, #1E40AF 0%, #7C3AED 50%, #EC4899 100%) !important;
+        background: linear-gradient(135deg, #3B82F6 0%, #8B5CF6 100%) !important;
         color: white !important;
         border: none !important;
         padding: 1.5rem 3rem !important;
@@ -404,102 +297,44 @@ st.markdown("""
         font-family: 'Orbitron', monospace !important;
         text-transform: uppercase !important;
         letter-spacing: 0.1em !important;
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
-        box-shadow: 
-            0 10px 30px rgba(30, 64, 175, 0.4),
-            0 4px 15px rgba(124, 58, 237, 0.3),
-            inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
-        border: 1px solid rgba(255, 255, 255, 0.3) !important;
-        position: relative !important;
-        overflow: hidden !important;
-    }
-    
-    .stButton > button::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-        transition: left 0.5s ease;
+        transition: all 0.4s ease !important;
+        box-shadow: 0 15px 35px rgba(59, 130, 246, 0.4) !important;
+        border: 2px solid rgba(255, 255, 255, 0.3) !important;
     }
     
     .stButton > button:hover {
-        transform: translateY(-3px) scale(1.02) !important;
-        box-shadow: 
-            0 20px 40px rgba(30, 64, 175, 0.5),
-            0 8px 25px rgba(124, 58, 237, 0.4),
-            inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
-        background: linear-gradient(135deg, #1D4ED8 0%, #6D28D9 50%, #DB2777 100%) !important;
-    }
-    
-    .stButton > button:hover::before {
-        left: 100%;
+        transform: translateY(-8px) scale(1.08) !important;
+        box-shadow: 0 25px 50px rgba(59, 130, 246, 0.6) !important;
+        background: linear-gradient(135deg, #1D4ED8 0%, #7C3AED 100%) !important;
     }
     
     .quest-card {
-        background: linear-gradient(145deg, rgba(255,255,255,0.98) 0%, rgba(248,250,252,0.95) 100%);
-        border-radius: 25px;
-        padding: 2rem;
-        margin: 1.5rem 0;
-        border: 1.5px solid rgba(30, 64, 175, 0.15);
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        position: relative;
-        overflow: hidden;
-        box-shadow: 
-            0 10px 25px rgba(15, 23, 42, 0.06),
-            0 4px 10px rgba(15, 23, 42, 0.03);
-    }
-    
-    .quest-card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 3px;
-        background: linear-gradient(90deg, #059669 0%, #1E40AF 50%, #7C3AED 100%);
-        transform: scaleX(0);
-        transition: transform 0.3s ease;
-        transform-origin: left;
-    }
-    
-    .quest-card:hover {
-        transform: translateX(15px) translateY(-5px);
-        border-color: #1E40AF;
-        box-shadow: 
-            0 25px 50px rgba(30, 64, 175, 0.15),
-            0 10px 25px rgba(15, 23, 42, 0.08);
-    }
-    
-    .quest-card:hover::before {
-        transform: scaleX(1);
-    }
-    
-    .achievement-badge {
-        background: linear-gradient(135deg, #D97706 0%, #DC2626 50%, #EC4899 100%);
-        color: white !important;
-        padding: 0.75rem 1.5rem;
-        border-radius: 30px;
-        font-weight: 700;
-        font-size: 0.9rem;
-        display: inline-block;
-        margin: 0.5rem;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        box-shadow: 
-            0 8px 20px rgba(217, 119, 6, 0.3),
-            0 3px 8px rgba(220, 38, 38, 0.2);
-        border: 1px solid rgba(255, 255, 255, 0.2);
+        background: linear-gradient(145deg, rgba(255,255,255,0.9) 0%, rgba(248,249,250,0.8) 100%);
+        border-radius: 20px;
+        padding: 1.5rem;
+        margin: 1rem 0;
+        border: 2px solid rgba(59, 130, 246, 0.2);
         transition: all 0.3s ease;
     }
     
-    .achievement-badge:hover {
-        transform: translateY(-2px) scale(1.05);
-        box-shadow: 
-            0 12px 30px rgba(217, 119, 6, 0.4),
-            0 5px 15px rgba(220, 38, 38, 0.3);
+    .quest-card:hover {
+        transform: translateX(10px);
+        border-color: #3B82F6;
+        box-shadow: 0 15px 35px rgba(59, 130, 246, 0.2);
+    }
+    
+    .achievement-badge {
+        background: linear-gradient(135deg, #F59E0B 0%, #EF4444 100%);
+        color: white !important;
+        padding: 0.5rem 1rem;
+        border-radius: 25px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        display: inline-block;
+        margin: 0.25rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        box-shadow: 0 5px 15px rgba(245, 158, 11, 0.3);
     }
     
     .mini-game-card {
@@ -529,29 +364,12 @@ st.markdown("""
     }
     
     .sidebar-profile {
-        background: linear-gradient(145deg, rgba(255,255,255,0.98) 0%, rgba(248,250,252,0.95) 100%);
-        border-radius: 25px;
-        padding: 2.5rem;
+        background: var(--card-gradient);
+        border-radius: 20px;
+        padding: 2rem;
         text-align: center;
-        border: 1.5px solid rgba(30, 64, 175, 0.2);
+        border: 2px solid rgba(59, 130, 246, 0.3);
         margin-bottom: 2rem;
-        box-shadow: 
-            0 15px 35px rgba(15, 23, 42, 0.08),
-            0 5px 15px rgba(15, 23, 42, 0.04),
-            inset 0 1px 0 rgba(255, 255, 255, 0.8);
-        position: relative;
-        overflow: hidden;
-    }
-    
-    .sidebar-profile::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 4px;
-        background: linear-gradient(90deg, #1E40AF 0%, #7C3AED 50%, #EC4899 100%);
-        border-radius: 25px 25px 0 0;
     }
     
     h1, h2, h3, h4, h5, h6 {
@@ -572,27 +390,14 @@ st.markdown("""
     .icon-3d {
         font-size: 4rem;
         margin-bottom: 1rem;
-        filter: drop-shadow(0 8px 16px rgba(30, 64, 175, 0.25)) drop-shadow(0 4px 8px rgba(124, 58, 237, 0.15));
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        filter: drop-shadow(0 10px 20px rgba(59, 130, 246, 0.3));
+        transition: all 0.3s ease;
         display: inline-block;
-        transform-style: preserve-3d;
     }
     
     .icon-3d:hover {
-        transform: scale(1.15) rotateY(15deg) rotateX(5deg);
-        filter: drop-shadow(0 12px 24px rgba(30, 64, 175, 0.35)) drop-shadow(0 6px 12px rgba(124, 58, 237, 0.25));
-    }
-    
-    h1, h2, h3, h4, h5, h6 {
-        background: linear-gradient(135deg, #1E40AF 0%, #7C3AED 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        font-family: 'Orbitron', monospace !important;
-        font-weight: 700 !important;
-        text-transform: uppercase !important;
-        letter-spacing: 0.05em !important;
-        filter: drop-shadow(0 2px 4px rgba(30, 64, 175, 0.2));
-    } 92, 246, 0.5));
+        transform: scale(1.2) rotateY(180deg);
+        filter: drop-shadow(0 15px 30px rgba(139, 92, 246, 0.5));
     }
 </style>
 """, unsafe_allow_html=True)
@@ -720,12 +525,12 @@ with st.sidebar:
     
     st.markdown("### 🌌 Market Status")
     health_colors = {
-        'Elite': '#059669',
-        'Advanced': '#1E40AF',
-        'Moderate': '#D97706',
-        'Challenging': '#DC2626'
+        'Elite': '#10B981',
+        'Advanced': '#3B82F6',
+        'Moderate': '#F59E0B',
+        'Challenging': '#EF4444'
     }
-    health_color = health_colors.get(metrics['market_health'], '#334155')
+    health_color = health_colors.get(metrics['market_health'], '#6B7280')
     
     st.markdown(f"""
     <div style="background: linear-gradient(135deg, {health_color}20 0%, rgba(255,255,255,0.9) 100%); 
@@ -747,8 +552,8 @@ if selected_menu == "🎯 Mission Control Hub":
     
     with col1:
         st.markdown(f"""
-        <div class="metric-card-3d" style="background: linear-gradient(135deg, #1E40AF20 0%, rgba(255,255,255,0.98) 100%); border-color: #1E40AF;">
-            <div class="icon-3d" style="color: #1E40AF;">👑</div>
+        <div class="metric-card-3d" style="background: linear-gradient(135deg, #3B82F620 0%, rgba(255,255,255,0.9) 100%); border-color: #3B82F6;">
+            <div class="icon-3d" style="color: #3B82F6;">👑</div>
             <div class="metric-label-3d">Player Level</div>
             <div class="metric-value-3d">{st.session_state.user_profile['level']}</div>
         </div>
@@ -756,8 +561,8 @@ if selected_menu == "🎯 Mission Control Hub":
     
     with col2:
         st.markdown(f"""
-        <div class="metric-card-3d" style="background: linear-gradient(135deg, #05966920 0%, rgba(255,255,255,0.98) 100%); border-color: #059669;">
-            <div class="icon-3d" style="color: #059669;">⭐</div>
+        <div class="metric-card-3d" style="background: linear-gradient(135deg, #10B98120 0%, rgba(255,255,255,0.9) 100%); border-color: #10B981;">
+            <div class="icon-3d" style="color: #10B981;">⭐</div>
             <div class="metric-label-3d">Total XP</div>
             <div class="metric-value-3d">{st.session_state.user_profile['points']:,}</div>
         </div>
@@ -765,8 +570,8 @@ if selected_menu == "🎯 Mission Control Hub":
     
     with col3:
         st.markdown(f"""
-        <div class="metric-card-3d" style="background: linear-gradient(135deg, #D9770620 0%, rgba(255,255,255,0.98) 100%); border-color: #D97706;">
-            <div class="icon-3d" style="color: #D97706;">💰</div>
+        <div class="metric-card-3d" style="background: linear-gradient(135deg, #F59E0B20 0%, rgba(255,255,255,0.9) 100%); border-color: #F59E0B;">
+            <div class="icon-3d" style="color: #F59E0B;">💰</div>
             <div class="metric-label-3d">Wallet Balance</div>
             <div class="metric-value-3d">${st.session_state.user_profile['wallet_balance']:.0f}</div>
         </div>
@@ -774,8 +579,8 @@ if selected_menu == "🎯 Mission Control Hub":
     
     with col4:
         st.markdown(f"""
-        <div class="metric-card-3d" style="background: linear-gradient(135deg, #DC262620 0%, rgba(255,255,255,0.98) 100%); border-color: #DC2626;">
-            <div class="icon-3d" style="color: #DC2626;">🔥</div>
+        <div class="metric-card-3d" style="background: linear-gradient(135deg, #EF444420 0%, rgba(255,255,255,0.9) 100%); border-color: #EF4444;">
+            <div class="icon-3d" style="color: #EF4444;">🔥</div>
             <div class="metric-label-3d">Daily Streak</div>
             <div class="metric-value-3d">{st.session_state.user_profile['current_streak']}</div>
         </div>
