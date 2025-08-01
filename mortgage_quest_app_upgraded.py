@@ -1,64 +1,72 @@
-
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+import numpy as np
+import matplotlib.pyplot as plt
 
-# App configuration
-st.set_page_config(page_title="Mortgage Quest Prototype", layout="wide")
-
-st.title("🏡 Mortgage Quest — Interactive Game Mode Simulator")
-
-# Load the dataset
-df = pd.read_csv("us_mortgage_data_fixed.csv")
-
-# Create top navigation
-selected_tab = st.navigation(
-    items=[
-        {"label": "First Timer"},
-        {"label": "Family Builder"},
-        {"label": "Trade-Up Pro"},
-        {"label": "Smart Downsizer"},
-        {"label": "Property Investor"}
-    ],
-    position="top"
+# Page Config
+st.set_page_config(
+    page_title="Mortgage Quest — Interactive Game Mode Simulator",
+    layout="wide"
 )
-mode = selected_tab["label"]
 
-# Filter date range with slider
-st.sidebar.header("📆 Quarter Range Filter")
-start_q, end_q = st.sidebar.select_slider(
-    "Select Time Period:",
-    options=df["Date"].tolist(),
-    value=(df["Date"].iloc[0], df["Date"].iloc[-1])
-)
-filtered_df = df[df["Date"].between(start_q, end_q)]
+# Title
+st.title("🏠 Mortgage Quest — Interactive Game Mode Simulator")
+st.markdown("A U.S. housing market simulator built for the NYU Fintech Capstone Project.")
 
-# Show Key Metrics
-st.subheader(f"🧠 Market Signals for {mode}")
-latest_fed = filtered_df["Fed_Rate"].iloc[-1]
-latest_delinq = filtered_df["Delinquency_90plus"].iloc[-1]
+# Load Data
+@st.cache_data
+def load_data():
+    df = pd.read_csv("us_mortgage_data_fixed.csv")  # Make sure this file is in your repo
+    return df
 
-col1, col2 = st.columns(2)
-col1.metric("Fed Rate (Latest)", f"{latest_fed:.2f}%")
-col2.metric("90+ Day Delinquency", f"{latest_delinq:.2f}%")
+df = load_data()
 
-# Game decision logic
-st.markdown("### 🎯 Game AI Suggestion")
-if latest_fed > 5 or latest_delinq > 4:
-    st.error("🚨 Game says: **WAIT 🔴** — High market risk detected")
-    st.markdown("💡 *Focus on saving and observing trends. Buying now may be risky.*")
-else:
-    st.success("✅ Game says: **BUY 🟢** — Favorable conditions")
-    st.markdown("💡 *Explore mortgage offers and lock in lower rates if ready.*")
+# Tabs
+tabs = st.tabs(["🏠 Home", "📊 Data Trends", "🧮 Simulations", "💡 Buy or Wait", "ℹ️ About"])
 
-# Plotly chart
-st.markdown("### 📈 Economic Trends Over Time")
-fig = px.line(filtered_df, x="Date", y=["Fed_Rate", "Delinquency_90plus"],
-              labels={"value": "Rate (%)", "variable": "Metric"},
-              title="📊 Fed Rate vs. Delinquency Rate Trends")
-st.plotly_chart(fig, use_container_width=True)
+# --- Home Tab ---
+with tabs[0]:
+    st.subheader("Welcome to Mortgage Quest")
+    st.write("Explore macroeconomic stress, mortgage delinquency, and affordability dynamics interactively.")
+    st.image("https://images.unsplash.com/photo-1560185127-6ed189bf02bb")  # Optional: aesthetic
 
-# Insight Summary
-st.info(f"📌 Insight as of **{filtered_df['Date'].iloc[-1]}**: "
-        f"Fed Rate is {'rising' if latest_fed > 4 else 'stable'}, "
-        f"Delinquency is {'elevated' if latest_delinq > 4 else 'manageable'}.")
+# --- Data Trends Tab ---
+with tabs[1]:
+    st.subheader("📊 Mortgage & Delinquency Trends")
+    st.write("Visualizing trends from 2020 to 2025")
+    
+    selected_metric = st.selectbox("Select Metric", df.columns[1:])
+    fig = px.line(df, x="Date", y=selected_metric, title=f"{selected_metric} Over Time")
+    st.plotly_chart(fig, use_container_width=True)
+
+# --- Simulations Tab ---
+with tabs[2]:
+    st.subheader("🧮 Economic Stress Simulation")
+    fed_rate = st.slider("Simulated Fed Rate (%)", 0.0, 10.0, 5.0)
+    income = st.slider("Median Income ($)", 20000, 120000, 60000)
+    rent = st.slider("Median Rent ($)", 500, 4000, 1500)
+
+    affordability_index = income / rent
+    st.metric("Affordability Index", round(affordability_index, 2))
+
+# --- Buy or Wait Tab ---
+with tabs[3]:
+    st.subheader("💡 Should You BUY or WAIT?")
+    if affordability_index > 3:
+        st.success("📈 Market seems affordable → Recommended: **BUY**")
+    elif affordability_index > 2:
+        st.warning("⚖️ Borderline case → Recommended: **WAIT and Watch**")
+    else:
+        st.error("📉 Market is tight → Recommended: **WAIT**")
+
+# --- About Tab ---
+with tabs[4]:
+    st.subheader("ℹ️ About This Project")
+    st.markdown("""
+    **Mortgage Quest** is a fintech simulation tool designed for the NYU Stern Fintech Capstone.  
+    It uses real U.S. economic data to model how consumers might decide between **buying** or **waiting** in the housing market.
+
+    **Developed by:** BEFMNS  
+    **Year:** 2025  
+    """)
